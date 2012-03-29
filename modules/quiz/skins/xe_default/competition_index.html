@@ -1,0 +1,10 @@
+<!--%import("js/quiz.js")-->
+<!--#include("_header.html")-->
+<!--%import("css/questions.css")-->
+<p><i>{zdate($module_info->start_date,"Y-m-d")} - {zdate($module_info->end_date,"Y-m-d")}</i></p>
+<!--@if($grant->take_quiz) -->
+<p class="user_score">
+	Number of correctly answered questions: <!--@if($score) -->{$score}<!--@else-->0<!--@end-->.
+</p>
+<!--@end -->
+<!--#include("questions_list.html")-->

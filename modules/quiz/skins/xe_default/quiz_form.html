@@ -1,0 +1,12 @@
+<!--%import("css/quiz.css")-->
+<!--%import("css/questions.css")-->
+<!--%import("filter/proc_quiz.xml")-->
+<!--%import("js/quiz.js")-->
+<!--#include("_header.html")-->
+
+<form method="post" action="./" onsubmit="return procFilter(this, proc_quiz)">
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />	
+	<input type="hidden" name="mid" value="{$module_info->mid}" />
+	<!--#include("questions_list.html")-->
+	<span class="button"><input type="submit" value="Submit" class="button" /></span>
+</form>

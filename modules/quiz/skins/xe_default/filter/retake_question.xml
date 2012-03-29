@@ -1,0 +1,11 @@
+<filter name="retake_question" module="quiz" act="procRetakeQuestion">
+    <form>
+    	<node target="question_srl" required="true" filter="number"/>
+    </form>
+    <parameter />
+    <response callback_func="completeRetakeQuestion">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="question_srl" />        
+    </response>
+</filter>

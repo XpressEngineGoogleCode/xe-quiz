@@ -1,0 +1,19 @@
+<filter name="insert_answer" module="quiz" act="procQuizAdminInsertAnswer">
+    <form>
+    	<node target="answer_srl" filter="number"/>
+    	<node target="question_srl" required="true" filter="number"/>
+	    <node target="module_srl" required="true" />
+	    <node target="title" required="true" maxlength="250"/>
+	    <node target="list_order" filter="number"/>    
+	    <node target="is_correct" required="true"/>
+	</form>
+    <parameter>
+    </parameter>
+    <response callback_func="completeInsertAnswer">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="module" />
+        <tag name="act" />
+        <tag name="module_srl" />
+    </response>
+</filter>

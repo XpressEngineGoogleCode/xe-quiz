@@ -1,0 +1,13 @@
+<!--%import("css/quiz.css")-->
+<!--%import("filter/retake_quiz.xml")-->
+<!--%import("js/quiz.js")-->
+<!--%import("css/questions.css")-->
+<!--#include("_header.html")-->
+<p>You scored {$score} at this test!</p>
+<p>Think you can do better? <a href="#" onclick="return doRetakeQuiz('{$module_info->module_srl}');">Retake this test!</a> </p>
+
+<!--#include("questions_list.html")-->
+
+<form id="fo_retake_quiz" name="fo_retake_quiz" method="post" action="./">
+	<input type="hidden" name="module_srl" value="" />
+</form>

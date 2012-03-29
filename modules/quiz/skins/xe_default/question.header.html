@@ -1,0 +1,17 @@
+<div class="quiz_question {$class}">
+	<h3>
+		<p class="title">Question {$question->list_order}
+			<!--@if($module_info->use_question_activation_date == 'Y') -->
+			<span class="question_activation_date">
+			<!--@if($class == 'inactive') -->
+				Coming soon.
+			<!--@else -->
+				- {zdate($question->activation_date, 'Y-m-d')}
+			<!--@end --> 
+			
+			</span>
+			<!--@end -->
+		</p>
+		<div style="clear:both"></div>
+	</h3>
+	

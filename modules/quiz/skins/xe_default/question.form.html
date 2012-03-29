@@ -1,0 +1,42 @@
+<!--#include("question.header.html")-->
+<!--@if(!$grant->take_quiz) -->
+	<!--#include("question.teaser.html")-->
+<!--@else -->
+	<div class="question q_form">
+	
+	<!--@if($module_info->use_question_activation_date == 'Y') --> <!--@ // Process questions one at a time -->
+		<!--%import("filter/proc_question.xml")-->
+		<form method="post" action="./" onsubmit="return procFilter(this, proc_question);">
+			<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+			<input type="hidden" name="question_srl" value="{$question->question_srl}" />
+			<input type="hidden" name="mid" value="{$module_info->mid}" />
+	<!--@end -->
+	
+	<!--@if($question->is_multiple_choice == 'Y')-->
+			<p class="question_title">{$question->list_order}. {$question->title}</p>
+			<p>
+				<ul class="answers">
+				<!--@foreach($question->answers as $indx => $answer)-->
+						<li>
+							<input type="checkbox" name="item_{$question->question_srl}" id="item_{$question->question_srl}" value="{$answer->answer_srl}" />
+							{$answer->title}
+						</li>
+				<!--@end -->
+				</ul>
+			</p>
+	<!--@else -->	
+			<p class="question_title">{$question->title}</p>
+			<p><textarea name="answer" class="inputTypeTextArea answer" id="answer"></textarea></p>
+	<!--@end -->
+			<p class="question_hint">{$question->hint}</p>
+	
+	<!--@if($module_info->use_question_activation_date == 'Y') --> <!--@ // Process questions one at a time -->
+		<span class="button"><input type="submit" value="Submit!" class="button" /></span>
+		<!--@if($question_srl)-->
+		<span class="button"><input type="button" value="{$lang->cmd_back}" onclick="history.back(); return false;" /></span>
+		<!--@end-->
+		</form>
+	<!--@end -->
+	</div>	
+<!--@end -->
+<!--#include("question.footer.html")-->

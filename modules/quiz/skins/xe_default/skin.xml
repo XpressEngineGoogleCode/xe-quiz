@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="en">Default quiz skin</title>
+    <description xml:lang="en">
+        Default quiz skin
+        Arnia Software (xe_dev@arnia.ro)
+    </description>
+    <version>0.1</version>
+    <date>2010-02-17</date>
+
+    <author email_address="xe_dev@arnia.ro" link="http://xpressengine.org/">
+		<name xml:lang="en">Arnia Software</name>
+    </author>
+
+    <license>LGPL</license>
+</skin>
+

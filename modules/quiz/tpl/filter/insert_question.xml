@@ -1,0 +1,23 @@
+<filter name="insert_question" module="quiz" act="procQuizAdminInsertQuestion">
+    <form>
+    	<node target="question_srl" filter="number"/>
+	    <node target="module_srl" required="true" />
+	    <node target="title" required="true"/>
+	    <node target="list_order" filter="number"/>
+	    <node target="weight" filter="number"/>
+    </form>
+    <parameter>
+	    <param name="description" target="description" />
+	    <param name="hint" target="hint" />
+	    <param name="activation_date" target="activation_date"/>
+	    <param name="answer" target="answer" />
+	    <param name="is_multiple_choice" target="is_multiple_choice" />
+    </parameter>
+    <response callback_func="completeInsertQuestion">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="module" />
+        <tag name="act" />
+        <tag name="module_srl" />
+    </response>
+</filter>

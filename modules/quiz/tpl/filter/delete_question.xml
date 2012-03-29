@@ -1,0 +1,14 @@
+<filter name="delete_question" module="quiz" act="procQuizAdminDeleteQuestion" confirm_msg_code="confirm_delete">
+    <form>
+    	<node target="question_srl" required="true"/>
+	</form>
+    <parameter>
+    </parameter>
+    <response callback_func="completeDeleteQuestion">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="module" />
+        <tag name="act" />
+        <tag name="module_srl" />
+    </response>
+</filter>

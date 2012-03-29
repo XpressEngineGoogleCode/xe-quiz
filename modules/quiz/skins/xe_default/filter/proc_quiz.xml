@@ -1,0 +1,11 @@
+<filter name="proc_quiz" module="quiz" act="procQuiz">
+    <form />
+    <parameter>
+    	<param name="module_srl" target="module_srl" />
+    </parameter>
+    <response callback_func="completeQuiz">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="quiz_srl" />        
+    </response>
+</filter>
