@@ -191,7 +191,7 @@
 			
 			// Initializing variables for the Update clause
 			if($args->end_date) $log_args->end_date = $args->end_date;
-			if($args->answer) $log_args->answer = $args->answer;
+			if($args->answer) $log_args->answer = substr($args->answer, 0, 254);
 			if($args->is_active) $log_args->is_active = $args->is_active;
 			if($args->is_correct) $log_args->is_correct = $args->is_correct;
 			if($args->weight) $log_args->weight = $args->weight;
@@ -325,34 +325,31 @@
 			}
 		}
 		
-		// TODO See if we change this algorithm
-		function getAnswerWeight($module_srl, $question, $question_log, $is_correct){
-			if($is_correct == 'N') return 0;
-    		// Only give points if quiz is active (and start/end date are defined)
-    		$givePoints = false;
-    		$oModuleModel = &getModel('module');
-    		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-    		if($module_info->start_date && $module_info->end_date){
+		function quizIsActive($module_info){
+		    if($module_info->start_date && $module_info->end_date){
 	    		$start = strtotime($module_info->start_date);
 	    		$end = strtotime($module_info->end_date);
 	    		$now = strtotime(date('Ymd'));
-	    		if(($now - $start >= 0) && ($end - now >= 0)){
-	    			$givePoints = true;
+	    		if(($now - $start >= 0) && ($end - $now >= 0)){
+	    			return true;
 	    		}
+	    		return false;
     		}
-    		else $givePoints = true;
-    		
-    		/*
-    		if($givePoints){
-    			// Decrease score if there are previous attempts    			
-    			if($question_log)
-    				$count = $question_log->attempt;
-    			else $count = 1;
-    			return $question->weight / $count;
-    		}
-    		*/
-    		return $question->weight;
-    		return 0;			
+    		return true;
+		}
+		
+		// TODO See if we change this algorithm
+		function getAnswerWeight($module_srl, $question, $question_log, $is_correct){
+			if($is_correct == 'N') return 0;
+			
+    		//Only give points if quiz is active (and start/end date are defined)
+    		$oModuleModel = &getModel('module');
+    		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+    		$is_active = $this->quizIsActive($module_info);
+    		if($is_active)
+    			return $question->weight;
+    		else
+    			return 0;			
 		}
 		
 		function getDateDiff($date1, $date2){

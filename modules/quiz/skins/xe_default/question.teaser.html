@@ -5,7 +5,9 @@
 		<form method="post" action="./" onsubmit="return procFilter(this, start_question);">
 			<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
 			<input type="hidden" name="question_srl" value="{$question->question_srl}" />
+			<!--@if($quiz_is_active) -->
 			<span class="button"><input type="submit" value="Submit your answer!" class="button" /></span>
+			<!--@end -->
 		</form> 
 	</div>
 <!--#include("question.footer.html")-->

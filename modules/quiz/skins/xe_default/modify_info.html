@@ -7,8 +7,14 @@
 
 <!--%import("filter/modify_info.xml")-->
 
-    <h3>{$lang->msg_update_member}</h3>
+    <h1>{$lang->msg_update_member}</h1>
 
+    <h3>{$lang->member_default_info}</h3>
+
+    <div class="form-row">
+        <span class="label">{$lang->user_id}</span>
+        <span>{htmlspecialchars($member_info->user_name)}</span>
+    </div>
     <form id="fo_insert_member" action="{getUrl()}" method="post" onsubmit="return procFilter(this, modify_info)" <!--@if($member_config->profile_image == 'Y' || $member_config->image_name=='Y' || $member_config->image_mark=='Y')-->enctype="multipart/form-data"<!--@end--> target="tmp_upload_iframe">
     <input type="hidden" name="act" value="" />
     <input type="hidden" name="module" value="member" />
@@ -16,16 +22,13 @@
     <input type="hidden" name="signature" value="{htmlspecialchars($member_info->signature)}" />
     <input type="hidden" name="page" value="{$page}" />
 
+    <div class="form-row">
+        <span class="label">{$lang->email_address} <span class="require">*</span></span>
+        <span class="field"><input type="text" name="email_address" value="{htmlspecialchars($member_info->email_address)}" /></span>
+        <span class="hint">{$lang->about_email_address}</span>
+    </div>
+
     <table cellspacing="0" class="rowTable">
-    <tr><th colspan="2" class="title"><div>{$lang->member_default_info}</div></th></tr>
-    <tr>
-        <th><div>{$lang->user_id}</div></th>
-        <td class="wide">{htmlspecialchars($member_info->user_id)}</td>
-    </tr>
-    <tr>
-        <th><div>{$lang->email_address} <span class="require">*</span></div></th>
-        <td><input type="text" name="email_address" value="{htmlspecialchars($member_info->email_address)}" /><p>{$lang->about_email_address}</p></td>
-    </tr>
     <!--@if($extend_form_list)-->
     <tr><th colspan="2" class="title"><div>{$lang->member_extend_info}</div></th></tr>
     {@ $dummy_chk = 0 }
@@ -132,7 +135,7 @@
 
     <tr>
         <th class="button" colspan="2">
-            <span class="button black strong"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+            <span class="button black strong"><input type="submit" value="{$lang->cmd_save}" accesskey="s" /></span>
             <a href="{getUrl('act','dispMemberInfo','member_srl','')}" class="button"><span>{$lang->cmd_cancel}</span></a>
         </th>
     </tr>

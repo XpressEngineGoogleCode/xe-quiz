@@ -63,6 +63,11 @@
         		
         	$questions_list = $output;
             
+        	// See if quiz ended or not
+        	$module_info = Context::get('module_info');
+			$output = $oQuizModel->quizIsActive($module_info);
+			Context::set('quiz_is_active', $output);        	
+        	
             // Retrieve list of answers from the database (only for multiple_choice quizzes)
             $answers_list = array();
             $output = executeQueryArray('quiz.getAnswers', $args);
@@ -138,6 +143,10 @@
         		return;
         	}
         	        	
+        	$module_info = Context::get('module_info');
+			$output = $oQuizModel->quizIsActive($module_info);
+			Context::set('quiz_is_active', $output);
+			
         	// Retrieve question log data
         	$output = $oQuizModel->getQuestionLog($args);
         	$question_log = $output;

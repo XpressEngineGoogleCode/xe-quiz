@@ -2,14 +2,54 @@
 <!--%import("../../../member/skins/default/css/default.css")-->
 
 <div id="memberModule">
-    <h3>{$lang->cmd_view_member_info}</h3>
+    <h1>{$member_info->member_srl == $logged_info->member_srl ? $lang->my_profile : $lang->user_profile}</h1>
+    <span>
+        <span class="avatar" style="height:{$member_config->profile_image_max_height}px">
+        <!--@if($member_info->profile_image->src)-->
+        <img src="{$member_info->profile_image->src}" border="0" alt="{$member_info->user_name}" />
+            <!--@if($member_info->member_srl == $logged_info->member_srl)-->
+            <!--%import("filter/delete_profile_image.xml")-->
+            <form id="fo_insert_member" action="{getUrl()}" method="post" onsubmit="return procFilter(this, modify_info)">
+            <input type="hidden" name="member_srl" value="{$member_info->member_srl}" />
+            <input type="hidden" name="module" value="member" />
+            <input type="hidden" name="act" value="" />
+            <a href="#" onclick="doDeleteProfileImage({$member_info->member_srl});return false;" class="button"><span>{$lang->cmd_delete}</span></a>
+            </form>
+            <!--@end-->
+        <!--@else-->
+            <!--@if($member_info->member_srl == $logged_info->member_srl)-->
+            <form action="./" method="post" enctype="multipart/form-data" target="tmp_upload_iframe">
+            <input type="hidden" name="member_srl" value="{$member_info->member_srl}" />
+            <input type="hidden" name="module" value="member" />
+            <input type="hidden" name="act" value="procMemberInsertProfileImage" />
+                <input type="file" name="profile_image" value="" />
+                <span class="button"><input type="submit" value="{$lang->upload}" /></span>
+            </form>
+            <p>{$lang->profile_image_max_width} : {$member_config->profile_image_max_width}px, {$lang->profile_image_max_height} : {$member_config->profile_image_max_height}px</p>
+            <iframe id="tmp_upload_iframe" name="tmp_upload_iframe" style="display:none;width:1px;height:1px;position:absolute;top:-10px;left:-10px"></iframe>
+            <!--@end-->
+        <!--@end-->
+        </span>
+    </span>
+
+    <div class="form-row">
+        <span class="label">{$lang->user_name}</span>
+        <span>{htmlspecialchars($member_info->user_name)}</span>
+    </div>
+    <!--@if($member_info->member_srl == $logged_info->member_srl)-->
+    <div class="form-row">
+        <span class="label">{$lang->password}</span>
+        <span>*******</span>
+        <a class="button_link" href="{getUrl('act','dispMemberModifyPassword','member_srl','')}">{$lang->cmd_modify_member_password}</a>
+    </div>
+    <div class="form-row">
+        <span class="label">{$lang->email_address}</span>
+        <span>{htmlspecialchars($member_info->email_address)}</span>
+        <a class="button_link" href="{getUrl('act','dispMemberModifyInfo','member_srl','')}">{$lang->cmd_modify_email}</a>
+    </div>
+    <!--@end-->
 
     <table cellspacing="0" class="rowTable">
-    <tr><th colspan="2" class="title"><div>{$lang->member_default_info}</div></th></tr>
-    <tr>
-        <th><div>{$lang->user_id}</div></th>
-        <td class="wide">{htmlspecialchars($member_info->user_id)}</td>
-    </tr>
     <!--@if($extend_form_list)-->
     <tr>
         <th class="title" colspan="2"><div>{$lang->member_extend_info}</div></th>
@@ -46,13 +86,8 @@
     </tr>
     <!--@end-->
     <!--@end-->
-
     <tr>
         <th colspan="2" class="button">
-            <!--@if($member_info->member_srl == $logged_info->member_srl)-->
-	            <a href="{getUrl('act','dispMemberModifyInfo','member_srl','')}" class="button black strong"><span>{$lang->cmd_modify_member_info}</span></a>
-	            <a href="{getUrl('act','dispMemberModifyPassword','member_srl','')}" class="button green"><span>{$lang->cmd_modify_member_password}</span></a>
-           <!--@end-->
             <a href="{getUrl('act','','member_srl','')}" class="button"><span>{$lang->cmd_back}</span></a>
     </tr>
     </table>
