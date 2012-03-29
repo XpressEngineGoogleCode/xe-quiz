@@ -1,0 +1,59 @@
+<!--%import("../../../member/skins/default/js/member.js")-->
+<!--%import("../../../member/skins/default/css/default.css")-->
+
+<div id="memberModule">
+    <h3>{$lang->cmd_view_member_info}</h3>
+
+    <table cellspacing="0" class="rowTable">
+    <tr><th colspan="2" class="title"><div>{$lang->member_default_info}</div></th></tr>
+    <tr>
+        <th><div>{$lang->user_id}</div></th>
+        <td class="wide">{htmlspecialchars($member_info->user_id)}</td>
+    </tr>
+    <!--@if($extend_form_list)-->
+    <tr>
+        <th class="title" colspan="2"><div>{$lang->member_extend_info}</div></th>
+    </tr>
+    {@ $dummy_chk = 0 }
+    <!--@foreach($extend_form_list as $key => $val)-->
+    <tr <!--@if($dummy_chk==0)-->class="first-child" {@ $dummy_chk = 1; }<!--@end-->>
+        <th>
+            <div>
+                {htmlspecialchars($val->column_title)}
+            </div>
+        </th>
+        <td>
+            <!--@if($val->is_private)-->
+                <span class="privateItem">{$lang->private}</span>
+            <!--@else--> 
+                <!--@if($val->column_type=='tel' && $val->value[0] && $val->value[1] && $val->value[2])-->
+                    {htmlspecialchars($val->value[0])} 
+                        <!--@if($val->value[1])-->-<!--@end-->
+                    {htmlspecialchars($val->value[1])} 
+                        <!--@if($val->value[2])-->-<!--@end-->
+                    {htmlspecialchars($val->value[2])}
+                <!--@elseif($val->column_type=='kr_zip')-->
+                    {htmlspecialchars($val->value[0])}<!--@if($val->value[1]&&$val->value[0])--><br /><!--@end-->{htmlspecialchars($val->value[1])}
+                <!--@elseif($val->column_type=='checkbox' && is_array($val->value))-->
+                    {htmlspecialchars(implode(", ",$val->value))}&nbsp;
+                <!--@elseif($val->column_type=='date' && $val->value)-->
+                    {zdate($val->value, "Y-m-d")}&nbsp;
+                <!--@else-->
+                    {nl2br(htmlspecialchars($val->value))}&nbsp;
+                <!--@end-->
+            <!--@end--> 
+        </td>
+    </tr>
+    <!--@end-->
+    <!--@end-->
+
+    <tr>
+        <th colspan="2" class="button">
+            <!--@if($member_info->member_srl == $logged_info->member_srl)-->
+	            <a href="{getUrl('act','dispMemberModifyInfo','member_srl','')}" class="button black strong"><span>{$lang->cmd_modify_member_info}</span></a>
+	            <a href="{getUrl('act','dispMemberModifyPassword','member_srl','')}" class="button green"><span>{$lang->cmd_modify_member_password}</span></a>
+           <!--@end-->
+            <a href="{getUrl('act','','member_srl','')}" class="button"><span>{$lang->cmd_back}</span></a>
+    </tr>
+    </table>
+</div>    

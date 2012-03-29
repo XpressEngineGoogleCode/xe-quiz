@@ -1,0 +1,19 @@
+<!--#include("_header.html")-->
+
+<table id="ranking" cellpadding="5px" cellspacing="0" style="border:1px solid gray; padding:5px;">
+	<tr>
+		<th>Position</th>
+		<th>Username</th>
+		<th>Number of correctly answered questions</th>
+	</tr>
+	<!--@foreach($users as $no => $user) -->
+	<tr
+		<!--@if($no % 2 == 0)--> class="even"<!--@end -->
+	>
+		<td>{$no+1}</td>
+		<td>{$user->user_name}</td>
+		<td>{$user->score}</td>
+	</tr>
+	<!--@end -->
+</table>
+

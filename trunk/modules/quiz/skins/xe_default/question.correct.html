@@ -1,0 +1,33 @@
+<!--#include("question.header.html")-->
+<div class="question q_correct">
+	<p class="question_title">{$question->title}</p>
+	<!--@if($question->is_multiple_choice == 'Y') -->
+		<ul class="answers">
+			<!--@foreach($question->answers as $indx => $answer) -->	
+				<!--@if($answer->is_correct == 'Y') -->
+					<li class="correct">
+				<!--@else -->
+					<li>
+				<!--@end -->
+						{$indx+1}. {$answer->title}
+					</li>
+			<!--@end -->
+		</ul>
+	<!--@else -->
+		<p><strong>Correct answer: </strong>
+		<br/>
+		<!--@if($question->execute_answer == 'Y') -->
+			<!--@ $rows = explode("|", $question->answer); --><!--@end-->
+			<!--@ foreach($rows as $row) -->
+				<!--@ $fields = str_replace(",", "&nbsp;&nbsp;", $row); --><!--@end -->
+				{$fields}<br/>
+			<!--@end -->
+		<!--@else -->
+			{$question->answer}
+		<!--@end -->			
+		</p>
+		<p><strong>Your answer: </strong><br/>{$log->answer}</p>
+	<!--@end -->
+	<p cond="$question->description"><strong>Explanation: </strong>{$question->description}</p>
+</div>
+<!--#include("question.footer.html")-->

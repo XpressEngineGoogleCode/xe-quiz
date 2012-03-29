@@ -1,0 +1,15 @@
+<query id="update_log" action="update">
+    <tables>
+        <table name="quiz_log" />
+    </tables>
+    <columns>       
+	    <column name="score" var="score" filter="number" default="0" />
+	    <column name="total_time" var="total_time" filter="number" />
+	    <column name="start_date" var="start_date" />
+	    <column name="end_date" var="end_date" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" pipe="and" />
+        <condition operation="equal" column="user_identifier" var="user_identifier" pipe="and" />
+    </conditions>    
+</query>
