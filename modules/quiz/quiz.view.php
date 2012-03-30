@@ -47,7 +47,7 @@
         	// If no quiz is specified (module_srl), return
         	$args->module_srl = Context::get('module_srl');
         	if(!$args->module_srl)
-        		return $this->alertMessage('msg_invalid_request');
+        		return new Object(-1, 'msg_invalid_request');
         	
         	$args->question_srl = Context::get('question_srl');
         	if($args->question_srl){
@@ -59,7 +59,7 @@
         	$oQuizModel = &getModel('quiz');
         	$output = $oQuizModel->getQuestions($args);
         	if(!$output)
-        		return $this->alertMessage('msg_invalid_request');
+        		return new Object(-1, 'msg_invalid_request');
         		
         	$questions_list = $output;
             
@@ -133,7 +133,8 @@
         	// Retrieve question data
         	$output = $oQuizModel->getQuestion($args);
         	if(!$output)
-        		return $this->alertMessage('msg_invalid_request');
+        		return new Object(-1, 'msg_invalid_request');
+			
         	$question = $output;
         	Context::set('question', $question);
 
@@ -172,7 +173,7 @@
             // If no quiz is specified (module_srl), return
         	$args->module_srl = Context::get('module_srl');
         	if(!$args->module_srl)
-        		return $this->alertMessage('msg_invalid_request');
+        		return new Object(-1, 'msg_invalid_request');
         	
         	// If is not allowed to see this quiz, redirect to please_login page
         	//if(!$this->grant->take_quiz){
@@ -183,7 +184,7 @@
         	// Retrieve scores from the DB, in descending order
         	$output = executeQueryArray('quiz.getQuizRanking', $args);
         	if($output->error)
-        		return $this->alertMessage($output->message);
+        		return new Object(-1, $output->message);
         	
         	if($output->data){
         		$users = $output->data;
