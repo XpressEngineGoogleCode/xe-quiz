@@ -14,22 +14,31 @@
     		
     		// Retrieve all answers for this quiz
     		$args->module_srl = Context::get('module_srl');
-    		$output = executeQueryArray('quiz.getAnswers', $args);
+    		// Retrieve possible answers for multiple choice questions
+			$output = executeQueryArray('quiz.getAnswers', $args);
     		
     		// Prepare data for evaluating score
+			// Arrange possible answers conveniently
     		foreach ($output->data as $answer){
     			$a[$answer->question_srl][$answer->answer_srl]->correct_value = $answer->is_correct;
     		}
     		
+			// Arrange user input conveniently 
     		foreach($args as $question => $answers){
     			if(strpos($question, "item_") === 0){
     				$temp = explode("_", $question);
     				$question_srl = $temp[1];
     				$temp = explode("|", $answers);
-    				foreach($temp as $answer_srl){
-    					if(is_numeric($answer_srl)){
+    				foreach($temp as $answer_srl)
+					{
+    					if(is_numeric($answer_srl))
+						{
     						$a[$question_srl][$answer_srl]->user_value = "Y";		
     					}
+						else // If this is not a multiple choice question
+						{
+							$a[$question_srl][$question_srl]->user_value = $answer_srl;		
+						}
     				}
     			}
     		}
@@ -66,9 +75,17 @@
             	$q_args->question_srl = $question_srl;
             	$q_args->module_srl = $args->module_srl;
             	$answer_list = '';
-            	foreach($question_answers as $answer_srl => $answer){
-            		if($answer->user_value == 'Y') $answer_list += $answer_srl + ",";
-            	}
+				if($question_answers[$question_srl]) // Question is open answer
+				{
+					$answer_list = $question_answers[$question_srl]->user_value;
+				}
+				else // Question is multiple choice
+				{
+					foreach($question_answers as $answer_srl => $answer)
+					{
+						if($answer->user_value == 'Y') $answer_list += $answer_srl + ",";
+					}
+				}
             	$q_args->answer = $answer_list;
             	$q_args->is_correct = $results[$question_srl]->is_correct;
             	$q_args->weight = $results[$question_srl]->weight;

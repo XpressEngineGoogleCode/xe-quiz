@@ -307,6 +307,10 @@
     			return $is_correct;
 			}
 			else{
+				if(!$user_answer)
+				{
+					$user_answer = $question->answers[$question->question_srl]->user_value;
+				}
 				if($question->execute_answer == 'Y'){
 					try {
 						$scriptResult = $this->get_query_result($user_answer);
