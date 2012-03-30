@@ -70,7 +70,7 @@
          **/
         function dispQuizAdminInsertQuiz() {
         	if(!in_array($this->module_info->module, array('admin', 'quiz'))) {
-                return $this->alertMessage('msg_invalid_request');
+                return new Object(-1, 'msg_invalid_request');
             }
             
             // Load data needed to populate the dropdowns in the template file:
@@ -96,7 +96,7 @@
         function dispQuizAdminQuizQuestions(){
         	$args->module_srl = Context::get('module_srl');
         	if(!$args->module_srl)
-        		return $this->alertMessage('msg_invalid_request');
+        		return new Object(-1, 'msg_invalid_request');
         		
         	// Retrieve all questions
         	$output = executeQueryArray('quiz.getQuestions', $args);
@@ -121,7 +121,7 @@
          **/            
         function dispQuizAdminInsertQuestion(){
         	if(!in_array($this->module_info->module, array('admin', 'quiz'))) {
-                return $this->alertMessage('msg_invalid_request');
+                return new Object(-1, 'msg_invalid_request');
             }			
             
             $args->question_srl = Context::get('question_srl');
@@ -143,7 +143,7 @@
         // TODO Hide getAnswer inside model
         function dispQuizAdminInsertAnswer(){
         	if(!in_array($this->module_info->module, array('admin', 'quiz'))) {
-                return $this->alertMessage('msg_invalid_request');
+                return new Object(-1, 'msg_invalid_request');
             }			
             
             $answer->answer_srl = Context::get('answer_srl');
