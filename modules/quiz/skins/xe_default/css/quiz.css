@@ -24,6 +24,7 @@ textarea.answer {
 	background-color:#E3E4FA;
 	margin:0;
 	padding:5px;
+	padding-left: 30px;
 	border-bottom:1px solid #41627E;
 	color:black;
 	clear:both;

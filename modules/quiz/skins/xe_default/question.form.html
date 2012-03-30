@@ -30,7 +30,7 @@
 	<!--@else -->	
 			<p class="question_title">{$question->title}</p>
 			<!--@if($quiz_is_active) -->
-			<p><textarea name="answer" class="inputTypeTextArea answer" id="answer"></textarea></p>
+			<p><textarea name="item_{$question->question_srl}" class="inputTypeTextArea answer" id="item_{$question->question_srl}"></textarea></p>
 			<!--@end -->
 	<!--@end -->
 	
