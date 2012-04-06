@@ -57,11 +57,11 @@
             return $member_srl;
 		}
 		
-		// @brief Initializez info about the current memeber
-		// If user is logged in: member_srl
-		// Else: hash made from ipaddress and request header info
-		// TODO De vazut daca asta e ultima varianta de functie - ceva e putred
-		// Cred ca nu am dat check in la ultimele modificari de pe cubrid.org - de luat codul de acolo
+		/**
+		 *  @brief Initializez info about the current memeber
+		 *  If user is logged in: member_srl
+		 *  Else: hash made from ipaddress and request header info
+		 */
 		function addMemberInfo(){
 			$logged_info = Context::get('logged_info');
             $member_srl = $logged_info->member_srl?$logged_info->member_srl:-1;
