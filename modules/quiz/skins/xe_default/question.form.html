@@ -19,9 +19,7 @@
 				<ul class="answers">
 				<!--@foreach($question->answers as $indx => $answer)-->
 						<li>
-							<!--@if($quiz_is_active) -->
 							<input type="checkbox" name="item_{$question->question_srl}" id="item_{$question->question_srl}" value="{$answer->answer_srl}" />
-							<!--@end -->
 							{$answer->title}
 						</li>
 				<!--@end -->
@@ -29,9 +27,7 @@
 			</p>
 	<!--@else -->	
 			<p class="question_title">{$question->title}</p>
-			<!--@if($quiz_is_active) -->
 			<p><textarea name="item_{$question->question_srl}" class="inputTypeTextArea answer" id="item_{$question->question_srl}"></textarea></p>
-			<!--@end -->
 	<!--@end -->
 	
 			<p class="question_hint">{$question->hint}</p>
