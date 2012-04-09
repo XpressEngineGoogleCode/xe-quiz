@@ -9,5 +9,4 @@
     <column name="weight" type="number" size="11" notnull="notnull" />
     <column name="activation_date" type="date"  />
     <column name="is_multiple_choice" type="char" size="1" default="N" />
-    <column name="execute_answer" type="char" size="1" default="N" />
 </table>

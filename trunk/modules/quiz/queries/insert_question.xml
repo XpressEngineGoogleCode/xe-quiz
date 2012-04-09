@@ -13,6 +13,5 @@
 	    <column name="weight" var="weight" filter="number" />
 	    <column name="answer" var="answer"  />
 	    <column name="is_multiple_choice" var="is_multiple_choice"  />
-	    <column name="execute_answer" var="execute_answer"  />
     </columns>
 </query>

@@ -306,47 +306,6 @@
 
 			return $output->data[0]->count;			
 		}
-
-		function get_query_result($sql)
-		{
-			$host_ip = "localhost";
-			$host_port = 33000;
-			$db_name = "demodb";
-			$db_user = "guest";
-			$db_pwd  = "1234";
-			
-			$field_delim = ",";
-			$row_delim = "|";
-			
-			$cubrid_con = @cubrid_connect($host_ip, $host_port, $db_name,$db_user,$db_pwd);
-			
-			$ret_val = NULL;
-		 
-			if (!$cubrid_con) {
-				return NULL;
-			}
-			$result = @cubrid_execute($cubrid_con, $sql);
-			
-			if ($result) {
-					$ret_val = $row_delim;
-					// Get the number of columns in the result set created by the SQL query.
-					$num_fields = cubrid_num_cols($result);
-		 
-					// Get the results from the result set.
-					while ($row = cubrid_fetch($result)) {
-						for ($i = 0; $i < $num_fields; $i++) {
-							$ret_val .= $row[$i];
-							if ($i < ($num_fields-1))
-								$ret_val .= $field_delim;
-						}
-						$ret_val .= $row_delim;
-					}
-				}
-				
-			cubrid_disconnect($cubrid_con);
-			
-			return $ret_val;
-		}		
 								
 		function getDateDiff($date1, $date2){
 			return abs(strtotime($date2) - strtotime($date1));
