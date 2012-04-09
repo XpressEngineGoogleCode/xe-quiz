@@ -1,5 +1,6 @@
 <?php 
 	class quizModel extends quiz {
+		
 		function getSkinTemplatePath(){
 		    $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
             if(!is_dir($template_path)||!$this->module_info->skin) {
@@ -8,14 +9,45 @@
             }
             return $template_path;
 		}
-		// @brief Gets all questions for the current quiz  
+		/**
+		 * @brief Gets all questions and associated answers for the current quiz  
+		 */
 		function getQuestions($args){
 			// TODO Implement caching
 			if(!$args->module_srl) return false;
 			
 			$output = executeQueryArray('quiz.getQuestions', $args);
 			if(!$output) return false; 
-			return $output->data;
+			
+			$questions_list = $output->data;
+			
+            // Retrieve list of answers from the database (only for multiple_choice quizzes)
+            $answers_list = array();
+            $output = executeQueryArray('quiz.getAnswers', $args);
+            if($output && $output->data)
+	            foreach($output->data as $answer){
+	            	if(!isset($answers_list[$answer->question_srl])) $answers_list[$answer->question_srl] = array();
+	            	array_push($answers_list[$answer->question_srl], $answer);
+	            }		
+				
+			$result = array();
+			
+			foreach($questions_list as $question)
+			{
+				$oQuestion = null;
+				if($question->is_multiple_choice == 'Y')
+				{
+					$question->answers = $answers_list[$question->question_srl];
+					$oQuestion = new MultipleChoiceQuestion($question);
+				}
+				else 
+				{
+					$oQuestion = new OpenQuestion($question);
+				}
+				$result[] = $oQuestion;
+			}
+			
+			return $result;
 		}
 
 		// @brief Gets a certain question
@@ -25,9 +57,28 @@
 			
 			$output = executeQueryArray('quiz.getQuestion', $args);
 			if(!$output) return false; 
-			return $output->data[0];
+			$question =  $output->data[0];
+			
+			$oQuestion = null;
+			if($question->is_multiple_choice == 'Y')
+			{			
+				$question->answers = array();
+				$output = executeQueryArray('quiz.getAnswers', $args);
+				if($output && $output->data)
+					foreach($output->data as $answer){
+						array_push($question->answers, $answer);
+					}		
+				$oQuestion = new MultipleChoiceQuestion($question);
+			}			
+			else
+				$oQuestion = new OpenQuestion($question);
+			
+			return $oQuestion;
 		}
 
+		/**
+		 * @brief Get a unique user ID - works with both authenticated and anonymous users
+		 */
 		function getUserIdentifier(){
             $member_srl = $this->getMemberSrl();
 
@@ -79,7 +130,11 @@
             return $log_args;
 		}
 		
-		// @brief Returns log the current quiz
+		/*
+		 * @brief Returns log the current quiz
+		 * 
+		 * Uniquely identified by module_srl and user_identifier
+		 */
 		function getQuizLog($args){
 			if(!$args->module_srl) return new Object(true, 'msg_invalid_request');
 			
@@ -163,6 +218,7 @@
 			if($args->start_date) $log_args->start_date = $args->start_date;
 			if($args->is_active) $log_args->is_active = $args->is_active;
 			if($args->answer) $log_args->answer = $args->answer;
+			else $log_args->answer = '';
 			if($args->is_correct) $log_args->is_correct = $args->is_correct;
 			if($args->weight) $log_args->weight = $args->weight;
 			
@@ -291,71 +347,7 @@
 			
 			return $ret_val;
 		}		
-		
-		// TODO See if we change this algorithm
-		/*
-		 * For multiple answer questions, each question will consist of an array of answers.
-		 * Each answer will contain ->correct_value and ->user_value (if checked)
-		 */
-		function isCorrectAnswer($question, $user_answer = ''){
-			if($question->is_multiple_choice == 'Y'){
-				$is_correct = 'Y';
-				foreach($question->answers as $answer){
-    				if($answer->correct_value == "N" && $answer->user_value == "Y") $is_correct = 'N';
-    				if($answer->correct_value == "Y" && !$answer->user_value) $is_correct = 'N';
-    			}
-    			return $is_correct;
-			}
-			else{
-				if(!$user_answer)
-				{
-					$user_answer = $question->answers[$question->question_srl]->user_value;
-				}
-				if($question->execute_answer == 'Y'){
-					try {
-						$scriptResult = $this->get_query_result($user_answer);
-					}
-					catch(Exception $e){
-						return 'N';
-					}
-					if($scriptResult == null) return 'N';
-					
-					$user_answer = $scriptResult;
-				}
-				if(strcasecmp(trim($question->answer), trim($user_answer)) == 0){
-					return 'Y';
-				}
-				return 'N';					
-			}
-		}
-		
-		function quizIsActive($module_info){
-		    if($module_info->start_date && $module_info->end_date){
-	    		$start = strtotime($module_info->start_date);
-	    		$end = strtotime($module_info->end_date);
-	    		$now = strtotime(date('Ymd'));
-	    		if(($now - $start >= 0) && ($end - $now >= 0)){
-	    			return true;
-	    		}
-	    		return false;
-    		}
-    		return true;
-		}
-		
-		// TODO See if we change this algorithm
-		function getAnswerWeight($module_srl, $question, $question_log, $is_correct){
-			if($is_correct == 'N') return 0;
-			
-    		//Only give points if quiz is active (and start/end date are defined)
-    		$oModuleModel = &getModel('module');
-    		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-    		$is_active = $this->quizIsActive($module_info);
-    		if($is_active)
-    			return $question->weight;
-    		else
-    			return 0;			
-		}
-		
+								
 		function getDateDiff($date1, $date2){
 			return abs(strtotime($date2) - strtotime($date1));
 		}
@@ -387,6 +379,66 @@
 			return $result;						
 		}
 
+		// @brief Returs the view for a question and log
+		function getQuestionHTML($question, $log, $quiz_info, $quiz_log = null)
+		{
+			// Question already answered and correct
+			if(($log && $log->is_correct == 'Y')){
+				$duration = $this->getFormattedDateDiff($log->start_date, $log->end_date);
+				Context::set('duration', $duration);
+				$template_file = 'question.correct';
+				$class = 'correct';
+				if($quiz_info->showQuestionsAllAtOnce()) $class .= ' uncollapsed';
+			}
+			//  Question already answered and incorrect
+			elseif($log && $log->is_correct == 'N'){
+				if($quiz_info->timeQuestions())
+				{
+					$template_file = 'question.incorrect.timed';
+					$class = 'incorrect timed';
+				}
+				else
+				{
+					$template_file = 'question.incorrect.untimed';
+					$class = 'incorrect untimed';
+				}
+				
+				if($quiz_info->showQuestionsAllAtOnce()) 
+				{
+					$class .= ' uncollapsed';
+				}
+			}
+			else {
+				$template_file = 'question.form';
+				$class = 'form teaser';
+			}
+				
+			if($quiz_info->showQuestionsOneAtATime())
+			{
+				$activation_date = strtotime($question->getActivationDate());
+				$today = strtotime(date("Y-m-d"));
+			
+				// Question is not avaible yet
+				if($today - $activation_date < 0)
+				{
+					$template_file = 'question.inactive';
+					$class = 'inactive';
+				}
+			}
+			
+			// Question was not started and timing is used
+			if((!$log && $quiz_info->timeQuestions())){
+				$template_file = 'question.teaser';
+				$class = 'teaser';	
+			}
+			
+			Context::set('class', $class);
+			// Retrieve template file path
+			$template_path = $this->getSkinTemplatePath();
+			$oTemplate = &TemplateHandler::getInstance();			
+            return $oTemplate->compile($template_path, $template_file);
+		}		
+		/*
 		// @brief Returs the view for a question and log
 		function getQuestionHTML($question, $log, $use_question_activation_date = null, $use_timing = null, $quiz_log = null){
 			if(!$use_question_activation_date && !$quiz_log){
@@ -446,6 +498,8 @@
 			$oTemplate = &TemplateHandler::getInstance();			
             return $oTemplate->compile($template_path, $template_file);
 		}
+		 * 
+		 */
 
 		function getLatestActiveQuestion($module_srl){
 			if(!$module_srl) return new Object(true, 'msg_invalid_request');

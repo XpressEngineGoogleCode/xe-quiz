@@ -8,6 +8,7 @@
     </columns>
     <conditions>
         <condition operation="equal" column="module_srl" var="module_srl" />
+		<condition operation="equal" column="question_srl" var="question_srl" pipe="and" />
     </conditions>
     <navigation>
         <index var="sort_index" default="list_order" order="asc" />

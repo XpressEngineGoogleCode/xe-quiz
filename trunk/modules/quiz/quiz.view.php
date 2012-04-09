@@ -57,25 +57,13 @@
         	        		
         	// Retrieve list of questions for the current quiz from the database
         	$oQuizModel = &getModel('quiz');
-        	$output = $oQuizModel->getQuestions($args);
-        	if(!$output)
+        	$questions_list = $oQuizModel->getQuestions($args);
+        	if(!$questions_list)
         		return new Object(-1, 'msg_invalid_request');
-        		
-        	$questions_list = $output;
             
         	// See if quiz ended or not
-        	$module_info = Context::get('module_info');
-			$output = $oQuizModel->quizIsActive($module_info);
-			Context::set('quiz_is_active', $output);        	
-        	
-            // Retrieve list of answers from the database (only for multiple_choice quizzes)
-            $answers_list = array();
-            $output = executeQueryArray('quiz.getAnswers', $args);
-            if($output && $output->data)
-	            foreach($output->data as $answer){
-	            	if(!isset($answers_list[$answer->question_srl])) $answers_list[$answer->question_srl] = array();
-	            	array_push($answers_list[$answer->question_srl], $answer);
-	            }
+			$quiz_info = new QuizInfo($this->module_info->start_date, $this->module_info->end_date, $this->module_info->use_question_activation_date, $this->module_info->use_timing);
+			Context::set('quiz_info', $quiz_info);        	
             
             // Retrieve information about this quiz related to the current user
             $log_args->module_srl = $args->module_srl;
@@ -100,17 +88,15 @@
             
             $questionsHTML = array();
             foreach($questions_list as $question){
-            	$question_log = $questions_log[$question->question_srl];
-            	$question->answers = $answers_list[$question->question_srl];
+            	$question_log = $questions_log[$question->getQuestionSrl()];            	
             	Context::set('question', $question);
             	Context::set('log', $question_log);
             	$questionHTML = $oQuizModel->getQuestionHTML($question
             												, $question_log 
-            												, $this->module_info->use_question_activation_date
-            												, $this->module_info->use_timing
+            												, $quiz_info
             												, $quiz_log
             												);
-            	$questionsHTML[$question->question_srl] = $questionHTML;
+            	$questionsHTML[$question->getQuestionSrl()] = $questionHTML;
             }
             Context::set('questionsHTML', $questionsHTML);
             
@@ -131,11 +117,10 @@
         	$oQuizModel = &getModel('quiz');
         	
         	// Retrieve question data
-        	$output = $oQuizModel->getQuestion($args);
-        	if(!$output)
+        	$question = $oQuizModel->getQuestion($args);
+        	if(!$question)
         		return new Object(-1, 'msg_invalid_request');
-			
-        	$question = $output;
+					
         	Context::set('question', $question);
 
             // If is not allowed to see this quiz, redirect to please_login page
@@ -144,8 +129,7 @@
         		return;
         	}
         	        	
-        	$module_info = Context::get('module_info');
-			$output = $oQuizModel->quizIsActive($module_info);
+			$output = $oQuizModel->quizIsActive($this->module_info);
 			Context::set('quiz_is_active', $output);
 			
         	// Retrieve question log data

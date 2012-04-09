@@ -1,9 +1,9 @@
 <!--#include("question.header.html")-->
 <div class="question q_correct">
-	<p class="question_title">{$question->title}</p>
-	<!--@if($question->is_multiple_choice == 'Y') -->
+	<p class="question_title">{$question->getTitle()}</p>
+	<!--@if($question->isMultipleChoice()) -->
 		<ul class="answers">
-			<!--@foreach($question->answers as $indx => $answer) -->	
+			<!--@foreach($question->getAnswers() as $indx => $answer) -->	
 				<!--@if($answer->is_correct == 'Y') -->
 					<li class="correct">
 				<!--@else -->
@@ -23,11 +23,11 @@
 				{$fields}<br/>
 			<!--@end -->
 		<!--@else -->
-			{$question->answer}
+			{$question->getAnswer()}
 		<!--@end -->			
 		</p>
 		<p><strong>Your answer: </strong><br/>{$log->answer}</p>
 	<!--@end -->
-	<p cond="$question->description"><strong>Explanation: </strong>{$question->description}</p>
+	<p cond="$question->getDescription()"><strong>Explanation: </strong>{$question->getDescription()}</p>
 </div>
 <!--#include("question.footer.html")-->
