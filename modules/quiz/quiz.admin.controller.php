@@ -78,7 +78,6 @@
             $question_args->hint = $args->hint;
             $question_args->activation_date = $args->activation_date;
             $question_args->is_multiple_choice = $args->is_multiple_choice;
-            $question_args->execute_answer = $args->execute_answer;
             $question_args->answer = $args->answer;
             if($args->weight)
             	$question_args->weight = $args->weight;

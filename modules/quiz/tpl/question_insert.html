@@ -51,17 +51,7 @@
             </select>
             <p>{$lang->about_type}</p>
         </td>
-    </tr>    
-    <tr id="execute_answer_row">
-        <th scope="row"><div>{$lang->execute_answer}</div></th>
-        <td>
-            <select name="execute_answer">
-            	<option value="N" <!--@if($question->execute_answer == 'N')-->selected<!--@end-->>{$lang->select_no}</option>
-            	<option value="Y" <!--@if($question->execute_answer == 'Y')-->selected<!--@end-->>{$lang->select_yes}</option>
-            </select>
-            <p>{$lang->about_execute_answer}</p>
-        </td>
-    </tr>        
+    </tr>      
     <tr id="answer_row" style="<!--@if($question->isMultipleChoice())-->display:none<!--@end-->">
         <th scope="row"><div>{$lang->answer}</div></th>
         <td>

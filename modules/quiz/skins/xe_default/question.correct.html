@@ -16,15 +16,7 @@
 	<!--@else -->
 		<p><strong>Correct answer: </strong>
 		<br/>
-		<!--@if($question->execute_answer == 'Y') -->
-			<!--@ $rows = explode("|", $question->answer); --><!--@end-->
-			<!--@ foreach($rows as $row) -->
-				<!--@ $fields = str_replace(",", "&nbsp;&nbsp;", $row); --><!--@end -->
-				{$fields}<br/>
-			<!--@end -->
-		<!--@else -->
 			{$question->getAnswer()}
-		<!--@end -->			
 		</p>
 		<p><strong>Your answer: </strong><br/>{$log->answer}</p>
 	<!--@end -->

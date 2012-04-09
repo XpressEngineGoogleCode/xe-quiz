@@ -38,8 +38,6 @@
 	$lang->about_answer = '';
 	$lang->type = 'Question type';
 	$lang->about_type = 'Define what type of question this quiz will be.';
-	$lang->execute_answer = 'Execute answer';
-	$lang->about_execute_answer = 'Choose whether the user input should be executed against a database.';
 	$lang->select_yes = 'Yes';
 	$lang->select_no = 'No';
 	

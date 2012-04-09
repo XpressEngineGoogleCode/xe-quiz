@@ -53,10 +53,6 @@
         	
         	if(!$oDB->isTableExists('quiz_questions_log')) 
         		return true;
-
-        	// 2011.02.28 
-        	if(!$oDB->isColumnExists('quiz_questions', 'execute_answer'))
-        		return true;
         	
         	// 2011.02.28 Added support for subscribing to questions
         	if(!$oDB->isTableExists('quiz_subscribers')){ 
@@ -105,11 +101,6 @@
 			if(!$oDB->isTableExists('quiz_questions_log')){ 
 				$oDB->createTableByXmlFile('./modules/quiz/schemas/quiz_questions_log.xml');        	
 			}
-
-			
-            if(!$oDB->isColumnExists('quiz_questions', 'execute_answer')){
-        		$oDB->addColumn('quiz_questions','execute_answer','char',1, 'N');
-        	}        	
 
 			if(!$oDB->isTableExists('quiz_subscribers')){ 
 				$oDB->createTableByXmlFile('./modules/quiz/schemas/quiz_subscribers.xml');        	
