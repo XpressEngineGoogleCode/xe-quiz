@@ -5,14 +5,14 @@
      * @brief  quiz base class
      **/
 
+	include('quiz.item.php');
+
     class quiz extends ModuleObject {
 
         /**
          * @brief Method called only once, on module installation 
          **/
-        function moduleInstall() {
-        	$oModuleController = &getController('module');        	
-       	
+        function moduleInstall() {      	
             return new Object();
         }
 
@@ -62,7 +62,6 @@
         	if(!$oDB->isTableExists('quiz_subscribers')){ 
         		return true;
         	}
-        	$oModuleController = &getController('module');
         	$oModuleModel = &getModel('module');
        		if($oModuleModel->getTrigger('member.getMemberMenu', 'quiz', 'controller', 'triggerGetMenu', 'before')) return true; 
             return false;
@@ -115,7 +114,6 @@
 			if(!$oDB->isTableExists('quiz_subscribers')){ 
 				$oDB->createTableByXmlFile('./modules/quiz/schemas/quiz_subscribers.xml');        	
 			}
-        	
         	
         	$oModuleController = &getController('module');
         	$oModuleModel = &getModel('module');			

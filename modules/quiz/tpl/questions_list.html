@@ -13,7 +13,7 @@
 	<!--@foreach($questions_list as $no => $val)-->
 		<tr>
 			<th>{$no+1}</th>
-			<th><a href="{getUrl('act','dispQuizAdminInsertQuestion','module_srl',$module_srl, 'question_srl', $val->question_srl)}">{$val->title}</a></th>
+			<th><a href="{getUrl('act','dispQuizAdminInsertQuestion','module_srl',$module_srl, 'question_srl', $val->question_srl)}" title="Click to edit question">{$val->title}</a></th>
 			<th><a href="#" onclick="return doDeleteQuestion('{$val->question_srl}');">{$lang->delete_question}</a></th>
 			<th>
 				<!--@if($val->is_multiple_choice == 'Y') -->

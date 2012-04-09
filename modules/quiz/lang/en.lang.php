@@ -17,7 +17,7 @@
 	$lang->open_answer = 'Open answer';
 	$lang->multiple_choice = 'Multiple choice';
 	$lang->use_question_activation_date = 'Use question activation date';
-	$lang->about_use_question_activation_date = 'Choose whether questions will be made visible one at a time and must be answered individually (Y) or answer all questions at once (N).';
+	$lang->about_use_question_activation_date = 'Choose whether questions will be made visible one at a time and must be answered individually (Y) or answer all questions at once (N). This is usually used for competitions: where you make a new question available each week. You can also use this option if you want to time your users (how long it takes them to answer).';
 	$lang->use_timing = 'Use timing';
 	$lang->about_use_timing = 'Choose whether rankings should take into consideration the time it took the user to answer the questions.';
 	

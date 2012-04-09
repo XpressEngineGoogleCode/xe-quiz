@@ -8,7 +8,7 @@
 			$('#activation_date').datepicker({ dateFormat: 'yymmdd' });
 
 			$('#question_type').change(function() {
-				  $('#answer').toggle();
+				  $('#answer_row').toggle();
 				});
 
 		})(jQuery);
@@ -21,7 +21,7 @@
     <tr>
         <th scope="row"><div>{$lang->question_title}</div></th>
         <td>
-            <textarea name="title" class="inputTypeTextArea fullWidth" id="title">{htmlspecialchars($question->title)}</textarea>
+            <textarea name="title" class="inputTypeTextArea fullWidth" id="title">{htmlspecialchars($question->getTitle())}</textarea>
             <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','title')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
             <p>{$lang->about_question_title}</p>
         </td>
@@ -29,7 +29,7 @@
     <tr>
         <th scope="row"><div>{$lang->question_description}</div></th>
         <td>
-            <textarea name="description" class="inputTypeTextArea fullWidth" id="description">{htmlspecialchars($question->description)}</textarea>
+            <textarea name="description" class="inputTypeTextArea fullWidth" id="description">{htmlspecialchars($question->getDescription())}</textarea>
             <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','description')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
             <p>{$lang->about_question_description}</p>
         </td>
@@ -37,7 +37,7 @@
     <tr>
         <th scope="row"><div>{$lang->question_hint}</div></th>
         <td>
-            <textarea name="hint" class="inputTypeTextArea fullWidth" id="hint">{htmlspecialchars($question->hint)}</textarea>
+            <textarea name="hint" class="inputTypeTextArea fullWidth" id="hint">{htmlspecialchars($question->getHint())}</textarea>
             <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','hint')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
             <p>{$lang->about_question_hint}</p>
         </td>
@@ -46,8 +46,8 @@
         <th scope="row"><div>{$lang->type}</div></th>
         <td>
             <select name="is_multiple_choice">
-            	<option value="N" <!--@if($question->is_multiple_choice == 'N')-->selected<!--@end-->>{$lang->open_answer}</option>
-            	<option value="Y" <!--@if($question->is_multiple_choice == 'Y')-->selected<!--@end-->>{$lang->multiple_choice}</option>
+            	<option value="N" <!--@if(!$question->isMultipleChoice())-->selected<!--@end-->>{$lang->open_answer}</option>
+            	<option value="Y" <!--@if($question->isMultipleChoice())-->selected<!--@end-->>{$lang->multiple_choice}</option>
             </select>
             <p>{$lang->about_type}</p>
         </td>
@@ -56,16 +56,16 @@
         <th scope="row"><div>{$lang->execute_answer}</div></th>
         <td>
             <select name="execute_answer">
-            	<option value="N" <!--@if($question->execute_answer == 'N')-->selected<!--@end-->   >{$lang->select_no}</option>
+            	<option value="N" <!--@if($question->execute_answer == 'N')-->selected<!--@end-->>{$lang->select_no}</option>
             	<option value="Y" <!--@if($question->execute_answer == 'Y')-->selected<!--@end-->>{$lang->select_yes}</option>
             </select>
             <p>{$lang->about_execute_answer}</p>
         </td>
     </tr>        
-    <tr id="answer">
+    <tr id="answer_row" style="<!--@if($question->isMultipleChoice())-->display:none<!--@end-->">
         <th scope="row"><div>{$lang->answer}</div></th>
         <td>
-            <textarea name="answer" class="inputTypeTextArea fullWidth" id="answer">{htmlspecialchars($question->answer)}</textarea>
+            <textarea name="answer" class="inputTypeTextArea fullWidth" id="answer"><!--@if(!$question->isMultipleChoice())-->{htmlspecialchars($question->getAnswer())}<!--@end--></textarea>
             <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','answer')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
             <p>{$lang->about_answer}</p>
         </td>
@@ -74,7 +74,7 @@
     <tr>
         <th scope="row"><div>{$lang->activation_date}</div></th>
         <td>
-            <input type="text" name="activation_date" value="{htmlspecialchars($question->activation_date)}"  class="inputTypeText" id="activation_date"/>
+            <input type="text" name="activation_date" value="{htmlspecialchars($question->getActivationDate())}"  class="inputTypeText" id="activation_date"/>
             <p>{$lang->about_activation_date}</p>
         </td>
     </tr>     
@@ -82,14 +82,14 @@
     <tr>
         <th scope="row"><div>{$lang->question_weight}</div></th>
         <td>
-            <input type="text" name="weight" value="{htmlspecialchars($question->weight)}"  class="inputTypeText w400" id="weight"/>
+            <input type="text" name="weight" value="{htmlspecialchars($question->getWeight())}"  class="inputTypeText w400" id="weight"/>
             <p>{$lang->about_question_weight}</p>
         </td>
     </tr>        
     <tr>
         <th scope="row"><div>{$lang->list_order}</div></th>
         <td>
-            <input type="text" name="list_order" value="{htmlspecialchars($question->list_order)}"  class="inputTypeText w400" id="list_order"/>
+            <input type="text" name="list_order" value="{htmlspecialchars($question->getListOrder())}"  class="inputTypeText w400" id="list_order"/>
             <p>{$lang->question_list_order}</p>
         </td>
     </tr>            

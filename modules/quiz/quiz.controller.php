@@ -10,91 +10,61 @@
         }
         
     	function procQuiz(){
-    		$args = Context::getRequestVars();
+			$module_srl = Context::get('module_srl');
+			
+			// Retrieve user's answers
+			$user_answers = $this->getUserAnswers();
+			
+			// Retrieve questions and their possible correct answers
+			$oQuizModel = &getModel('quiz');
+			$args->module_srl = $module_srl;
+			$questions = $oQuizModel->getQuestions($args);
+			
+			// Prepare quiz info for scoring
+			$oModuleModel = &getModel('module');
+			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+			$quiz = new QuizInfo($module_info->start_date, $module_info->end_date);
+			$score = 0;
+			
+			// Rate questions
+			foreach($questions as $question)
+			{
+				$question_srl = $question->getQuestionSrl();
+				$user_value = $user_answers[$question_srl];
+				
+				$is_correct = $question->checkAnswer($user_value);
+				$question_score = $question->getScore($user_value, $quiz);
+				
+    			$score += $question_score;
+    			$results[$question_srl]->weight = $question_score;
+    			$results[$question_srl]->is_correct = $is_correct ? 'Y' : 'N';				
+			}
     		
-    		// Retrieve all answers for this quiz
-    		$args->module_srl = Context::get('module_srl');
-    		// Retrieve possible answers for multiple choice questions
-			$output = executeQueryArray('quiz.getAnswers', $args);
-    		
-    		// Prepare data for evaluating score
-			// Arrange possible answers conveniently
-    		foreach ($output->data as $answer){
-    			$a[$answer->question_srl][$answer->answer_srl]->correct_value = $answer->is_correct;
-    		}
-    		
-			// Arrange user input conveniently 
-    		foreach($args as $question => $answers){
-    			if(strpos($question, "item_") === 0){
-    				$temp = explode("_", $question);
-    				$question_srl = $temp[1];
-    				$temp = explode("|", $answers);
-    				foreach($temp as $answer_srl)
-					{
-    					if(is_numeric($answer_srl))
-						{
-    						$a[$question_srl][$answer_srl]->user_value = "Y";		
-    					}
-						else // If this is not a multiple choice question
-						{
-							$a[$question_srl][$question_srl]->user_value = $answer_srl;		
-						}
-    				}
-    			}
-    		}
-    		
-    		// Rate questions
-    		$oQuizModel = &getModel('quiz');
-    		$score = 0;
-    		foreach ($a as $question_srl => $question_answers){
-    			$args->question_srl = $question_srl;
-    			$question = $oQuizModel->getQuestion($args);
-    			$question->answers = $question_answers;
-    			$is_correct = $oQuizModel->isCorrectAnswer($question);
-    			// TODO Retrieve question log
-    			if($is_correct == 'Y'){    				
-    				$q_score = $oQuizModel->getAnswerWeight($args->module_srl, $question, null, $is_correct);
-    			}
-    			else $q_score = $oQuizModel->getAnswerWeight($args->module_srl, null, null, $is_correct);
-    			$score += $q_score;
-    			$results[$question_srl]->weight = $q_score;
-    			$results[$question_srl]->is_correct = $is_correct;
-    		}
     		
     		// Insert quiz log
             $log_args->module_srl = Context::get('module_srl');                       
             $log_args->score = $score;
             
-            $oQuizModel = &getModel('quiz');
             $output = $oQuizModel->insertQuizLog($log_args);
             if($output->getError())
             	return $output->getMessage();
             
-            // For each question, insert question log
-            foreach($a as $question_srl => $question_answers){
-            	$q_args->question_srl = $question_srl;
-            	$q_args->module_srl = $args->module_srl;
-            	$answer_list = '';
-				if($question_answers[$question_srl]) // Question is open answer
-				{
-					$answer_list = $question_answers[$question_srl]->user_value;
-				}
-				else // Question is multiple choice
-				{
-					foreach($question_answers as $answer_srl => $answer)
-					{
-						if($answer->user_value == 'Y') $answer_list += $answer_srl + ",";
-					}
-				}
-            	$q_args->answer = $answer_list;
-            	$q_args->is_correct = $results[$question_srl]->is_correct;
-            	$q_args->weight = $results[$question_srl]->weight;
-            	
+			
+			// Insert questions log
+			foreach($user_answers as $user_answer)
+			{
+				$question_srl = $user_answer->getQuestionSrl();
+				$q_args->question_srl = $question_srl;
+				$q_args->module_srl = $module_srl;
+				$q_args->answer = $user_answer->toString();
+				$q_args->is_correct = $results[$question_srl]->is_correct;
+				$q_args->weight = $results[$question_srl]->weight;		
+				
             	$output = $oQuizModel->insertQuizQuestionLog($q_args);
             	if($output->getError())
-            		return new Object(true, $output->getMessage());
-            }
-            	
+            		return new Object(true, $output->getMessage());				
+			}
+			            	
             $this->setMessage('success_registed');
     	}
     
@@ -115,6 +85,14 @@
                 $oDB->rollback();
                 return $output;
             }
+			
+			$log_args->where_is_active = 'Y';
+			$log_args->is_active = 'N';
+            $output = executeQuery('quiz.update_question_log', $log_args);
+            if(!$output->toBool()) {
+                $oDB->rollback();
+                return $output;
+            }			
                        
             $oDB->commit();
 
@@ -163,7 +141,9 @@
     		$module_srl = Context::get('module_srl');
 			if(!$question_srl || !$module_srl)
        			return new Object(-1, 'msg_invalid_request');    		
-    		$answer = Context::get('answer');
+			$user_answers = $this->getUserAnswers();
+			
+    		$answer = $user_answers[$question_srl];
     		
     		// Retrieve question and log data for current question/quiz
     		$oQuizModel = &getModel('quiz');
@@ -171,29 +151,34 @@
     		$args->module_srl = $module_srl;
     		$question_log = $oQuizModel->getQuestionLog($args);
     		
+			// If user already answered the question correctly, he can't take it again
     		if($question_log && $question_log->is_correct == 'Y')
     			return new Object(-1, 'msg_invalid_request');
     			
     		$question = $oQuizModel->getQuestion($args);
 			$quiz_log = $oQuizModel->getQuizLog($args);    		
-    		
+    		$quiz = new QuizInfo($this->module_info->start_date, $this->module_info->end_date);
+			
 			// Evaluate user answer
-    		$args->is_correct = $oQuizModel->isCorrectAnswer($question, $answer);    		
-    		$args->weight = $oQuizModel->getAnswerWeight($module_srl, $question, $question_log, $args->is_correct);   		
-    		$args->answer = $answer;
-    		   		
+    		$args->is_correct = $question->checkAnswer($answer) ? 'Y' : 'N';    		
+			// $args->is_correct = $oQuizModel->isCorrectAnswer($question);    		
+			$args->weight = $question->getScore($answer, $quiz);   		
+			//$args->weight = $oQuizModel->getAnswerWeight($module_srl, $question, $question_log, $args->is_correct);   		
+			$args->answer = $answer->toString();
+    		// $args->answer = $answer;
+
     		// If log exists, update End date and Answer <=> quiz uses timing
     		if($question_log){
     			// Update record in Questions Log with the start date
     			$args->end_date = date("YmdHis");
 	            $args->where_is_active = 'Y';
-	        	$question_duration = $oQuizModel->getDateDiff($question_log->start_date, $args->end_date);
 	        	    
     			$output = $oQuizModel->updateQuizQuestionLog($args);
     			if($output->getError())
-    				return $output->getMessage();   
-
+					return $output->getMessage();   
+	        	
     			// Update Quiz log with new score and duration
+				$question_duration = $oQuizModel->getDateDiff($question_log->start_date, $args->end_date);
 				$args->score = $quiz_log->score + $args->weight;
 				if($question_duration && $args->is_correct == 'Y')
 					$args->total_time = $quiz_log->total_time + $question_duration;
@@ -294,5 +279,44 @@
  				
  			$this->setMessage('success_registed');
  		}
+		
+		/**
+		 * @brief Conveniently format user input (answers)
+		 * 
+		 * Answer fields have ids that start with "item_"
+		 * This is how we identify the fields we need from the question form
+		 */
+		function getUserAnswers()
+		{
+			$args = Context::getRequestVars();	
+    		
+			$a = array();
+			
+			// Arrange user input conveniently 
+    		// Foreach id => value pair
+			foreach($args as $question => $answers){
+    			if(strpos($question, "item_") === 0){
+					// Retrieve question_srl from input id
+    				$temp = explode("_", $question);
+    				$question_srl = $temp[1];
+					// Retrieve user answers from input value
+    				$temp = explode("|", $answers);
+    				foreach($temp as $answer_srl)
+					{
+						$a[$question_srl] = new UserAnswerForMultipleChoiceQuestion($question_srl);
+   						$a[$question_srl]->addChoice($answer_srl);
+    				}
+    			}
+				else if(strpos($question, "open_item_") === 0){
+					// Retrieve question_srl from input id
+    				$temp = explode("_", $question);
+    				$question_srl = $temp[2];					
+					$a[$question_srl] = new UserAnswerForOpenQuestion($question_srl);
+					$a[$question_srl]->setValue($answers);	
+				}
+    		}	
+			
+			return $a;
+		}
     }
 ?>

@@ -2,7 +2,13 @@
 <!--%import("css/questions.css")-->
 <!--%import("filter/proc_quiz.xml")-->
 <!--%import("js/quiz.js")-->
+
 <!--#include("_header.html")-->
+
+<!--@if($module_info->start_date) -->
+	<p>Quiz available between <i>{zdate($module_info->start_date,"Y-m-d")} </i> and <i> {zdate($module_info->end_date,"Y-m-d")}</i></p>
+	<br />
+<!--@end-->
 
 <form method="post" action="./" onsubmit="return procFilter(this, proc_quiz)">
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />	

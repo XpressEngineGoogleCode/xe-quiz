@@ -31,7 +31,7 @@
 .q_inactive, .q_correct, .q_incorrect {
 	display:none;
 	}	
-.uncollapsed .q_correct{
+.uncollapsed .q_correct, .uncollapsed .q_incorrect{
 	display:block;
 	}	
 .correct h3 {
