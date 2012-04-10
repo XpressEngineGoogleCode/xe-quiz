@@ -1,7 +1,7 @@
 <!--#include("question.header.html")-->
 <div class="question q_incorrect q_untimed">
 	<p class="question_title">{$question->getTitle()}</p>
-	<p>Unfortunately, your answer for this question was incorrect.</p>
+	<p>{$lang->incorrect_answer}</p>
 
 	<!--@if($question->isMultipleChoice()) -->
 		<ul class="answers">
@@ -16,7 +16,7 @@
 			<!--@end -->
 		</ul>
 	<!--@else -->
-		<p><strong>Your answer: </strong>{$log->answer}</p>
+		<p><strong>{$lang->your_answer}</strong>{$log->answer}</p>
 	<!--@end -->
 
 </div>

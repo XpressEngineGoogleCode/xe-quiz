@@ -5,4 +5,4 @@
 
 <!--#include("_header.html")-->
 
-You haven't added any questions yet! Go ahead and <a href="{getUrl('module_srl', $module_info->module_srl, 'module', 'admin', 'act', 'dispQuizAdminQuizQuestions', 'mid', '')}"> add a few questions</a>.
+{sprintf($lang->no_questions_exist, '<a href=' . getUrl('module_srl', $module_info->module_srl, 'module', 'admin', 'act', 'dispQuizAdminQuizQuestions', 'mid', '') .'>', '</a>')}.

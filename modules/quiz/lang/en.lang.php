@@ -50,6 +50,13 @@
 	$lang->delete_answer = 'Delete answer';
 	$lang->add_new_question = 'Add new question';
 	
+	// Admin - insert / edit answer
+	$lang->answer_title = 'Title';
+	$lang->about_answer_title = 'Answer text';
+	$lang->answer_list_order = 'List order';
+	$lang->answer_is_correct = 'Is correct';
+	$lang->about_answer_is_correct = 'Choose whether this is a correct answer.';
+	
 	// Member quiz signup
 	$lang->user_id = 'Username';
 	$lang->user_name = 'Full name';
@@ -113,4 +120,24 @@
     $lang->msg_not_enough_point = 'Your point is not enough to write an article in this board.';
 
 	$lang->write_comment = 'Write a comment';
+	
+	// Quiz results
+	$lang->user_score = "Your scored %s at this test!";
+	$lang->correct_answer = "Correct answer: ";
+	$lang->your_answer = "Your answer:";
+	$lang->explanation = "Explanation: ";
+	$lang->do_better = "Think you can do better?";
+	$lang->retake_test = "Retake this test!";
+	$lang->points_received_notice = "Note: You will only receive points for your answers between ";
+	
+	
+	// Questions
+	$lang->question_title = "Question %s";
+	$lang->coming_soon = "Coming soon.";
+	$lang->inactive = "This question is not available yet! Stay tuned for when it will become visible.";
+	$lang->incorrect_answer = "Unfortunately, your answer for this question was incorrect.";
+	
+	// Quiz index page
+	$lang->no_questions_exist = "You haven't added any questions yet! Go ahead and %sadd a few questions%s.";
+	$lang->available_between = "Quiz available between %s and %s.";
 ?>
