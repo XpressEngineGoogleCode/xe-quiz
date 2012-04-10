@@ -51,11 +51,11 @@
             </select>
             <p>{$lang->about_type}</p>
         </td>
-    </tr>      
+    </tr>    
     <tr id="answer_row" style="<!--@if($question->isMultipleChoice())-->display:none<!--@end-->">
         <th scope="row"><div>{$lang->answer}</div></th>
         <td>
-            <textarea name="answer" class="inputTypeTextArea fullWidth" id="answer"><!--@if(!$question->isMultipleChoice())-->{htmlspecialchars($question->getAnswer())}<!--@end--></textarea>
+            <textarea name="answer" class="inputTypeTextArea fullWidth" id="answer"><!--@if(!is_null($question->getQuestionSrl()) && !$question->isMultipleChoice())-->{htmlspecialchars($question->getAnswer())}<!--@end--></textarea>
             <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','answer')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
             <p>{$lang->about_answer}</p>
         </td>

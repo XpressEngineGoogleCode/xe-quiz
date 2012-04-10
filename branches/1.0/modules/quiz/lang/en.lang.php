@@ -12,8 +12,8 @@
 	// Admin - insert / edit quiz
 	$lang->start_date = 'Start date';
 	$lang->end_date = 'End date';
-	$lang->about_start_date = 'The date when the competition becomes active.';
-	$lang->about_end_date = 'The date when the competition finishes.';
+	$lang->about_start_date = 'The date when the competition becomes active. Users will be given points for their answers starting from this date.';
+	$lang->about_end_date = 'The date when the competition finishes. Users will be given points for their answers only until this date.';
 	$lang->open_answer = 'Open answer';
 	$lang->multiple_choice = 'Multiple choice';
 	$lang->use_question_activation_date = 'Use question activation date';
