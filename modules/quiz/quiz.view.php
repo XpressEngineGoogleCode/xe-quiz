@@ -131,8 +131,9 @@
         		return;
         	}
         	        	
-			$output = $oQuizModel->quizIsActive($this->module_info);
-			Context::set('quiz_is_active', $output);
+        	// See if quiz ended or not
+			$quiz_info = new QuizInfo($this->module_info->start_date, $this->module_info->end_date, $this->module_info->use_question_activation_date, $this->module_info->use_timing);
+			Context::set('quiz_info', $quiz_info);        	
 			
         	// Retrieve question log data
         	$output = $oQuizModel->getQuestionLog($args);
@@ -142,8 +143,7 @@
         	// Get HTML for question
         	$questionHTML = $oQuizModel->getQuestionHTML($question
         												, $question_log
-            											, $this->module_info->use_question_activation_date
-            											, $this->module_info->use_timing        												
+            											, $quiz_info												
         												);
         	Context::set('questionHTML', $questionHTML);
         	Context::set('question_srl', $args->question_srl);
