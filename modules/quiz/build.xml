@@ -15,7 +15,7 @@
 	<property name="config.build_dir" value="./build" override="true" />
 	<property name="config.build_dir_module_folder" value="./build/xe-quiz" override="true" />
 	<property name="config.svn" value="D:\svn\bin\svn.exe" override="true" />
-	<property name="release.repo" value="http://xe-quiz.googlecode.com/svn/tags/${version}" override="true" />
+	<property name="release.repo" value="http://xe-quiz.googlecode.com/svn/tags/quiz-module-${version}" override="true" />
 	<property name="release.name" value="xe-quiz.${version}" override="true" />
 
     <!-- ============================================  -->
