@@ -7,7 +7,7 @@ function completeInsertQuiz(ret_obj) {
     if(error != 0)
     	alert(message);
 
-    var url = current_url.setQuery('act','dispQuizAdminQuizInfo');
+    var url = current_url.setQuery('act','dispQuizAdminQuizQuestions');
     if(module_srl) url = url.setQuery('module_srl',module_srl);
     if(page) url.setQuery('page',page);
     location.href = url;
