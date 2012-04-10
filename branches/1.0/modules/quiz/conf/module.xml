@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants>
+        <grant name="take_quiz" default="guest">
+            <title xml:lang="en">Take quiz</title>
+        </grant>    
+    </grants>
+    <permissions />
+    <actions>    	
+    	<action name="dispQuizIndex" type="view" index="true" standalone="true" />
+    	<action name="dispQuizQuestion" type="view" standalone="true" />
+    	<action name="dispGlobalStanding" type="view" standalone="true" />
+    	<action name="dispSignUpForm" type="view" standalone="true" />
+   	
+    	<action name="dispQuizAdminList" type="view" admin_index="true" standalone="true" />
+    	<action name="dispQuizAdminInsertQuiz" type="view" standalone="true" />
+    	<action name="dispQuizAdminQuizInfo" type="view" standalone="true" />
+    	<action name="dispQuizAdminQuizQuestions" type="view" standalone="true" />
+    	<action name="dispQuizAdminInsertQuestion" type="view" standalone="true" />
+    	<action name="dispQuizAdminInsertAnswer" type="view" standalone="true" /> 	
+    	<action name="dispQuizAdminGrantInfo" type="view" standalone="true" />
+    	<action name="dispQuizAdminQuizLog" type="view" standalone="true" />
+    	<action name="dispQuizAdminQuizEmail" type="view" standalone="true" />
+    	
+    	<action name="procQuiz" type="controller" standalone="true" />
+    	<action name="procDeleteQuizLog" type="controller" standalone="true" />
+    	<action name="procStartQuestion" type="controller" standalone="true" />
+    	<action name="procQuestion" type="controller" standalone="true" />
+    	<action name="procRetakeQuestion" type="controller" standalone="true" />
+    	<action name="procRetakeQuestion" type="controller" standalone="true" />
+    	<action name="procMemberInsert" type="controller" standalone="true" />
+    	<action name="procQuizMemberSubscribe" type="controller" standalone="true" />
+    	
+    	
+    	<action name="procQuizAdminInsertQuiz" type="controller" standalone="true" />
+    	<action name="procQuizAdminInsertQuestion" type="controller" standalone="true" />
+    	<action name="procQuizAdminInsertAnswer" type="controller" standalone="true" />
+    	<action name="procQuizAdminDeleteAnswer" type="controller" standalone="true" />
+    	<action name="procQuizAdminDeleteQuestion" type="controller" standalone="true" />
+    	<action name="procQuizAdminDeleteQuiz" type="controller" standalone="true" />
+    	<action name="procQuizAdminClearLogs" type="controller" standalone="true" />
+    	<action name="procQuizAdminSendEmails" type="controller" standalone="true" />    	
+    </actions>
+    
+</module>

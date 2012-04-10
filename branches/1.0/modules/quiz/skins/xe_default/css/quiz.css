@@ -1,0 +1,76 @@
+h1 {
+	margin-bottom:20px;
+	}
+ul.answers li {
+	list-style:none;
+	padding-left:25px;
+	}
+ul.answers li.correct {
+	background:url(../img/checked.png) no-repeat;
+	}			
+textarea.answer {
+	width:80%;
+	}
+.user_score {
+	display:block;
+	color:#4AA02C;
+	font-size:1.2em;
+	padding:5px;
+	/*text-align:center;*/
+	font-weight:bold;
+	padding-left:0;
+	}
+.quiz_question h3 {
+	background-color:#E3E4FA;
+	margin:0;
+	padding:5px;
+	padding-left: 30px;
+	border-bottom:1px solid #41627E;
+	color:black;
+	clear:both;
+	}	
+.quiz_question h3 .weight{
+	float:right;
+	margin:0;
+	padding:0;
+	}		
+.quiz_question h3 .title{
+	float:left;
+	margin:0;
+	padding:0;	
+	}		
+.question_title {
+	font-size:1.2em;
+	}	
+.question_activation_date{
+	font-size:0.8em;
+	font-weight:normal;
+	}	
+#ranking {
+	width:80%;
+	text-align:left;
+	}	
+#ranking tr th {
+	background-color:#C6DEFF;
+	}	
+#ranking tr td.odd {
+	background-color:#E3E4FA;
+	}	
+.question_hint {
+	color:gray;
+	}	
+h1, .h1, h2, h3, #xe h4, h5, h6, #xe p, ul, ol, #content li, .widgetTree, .widgetTree li, .video_thumb, .heading_menu, .description, table, table.col4 tr, table.col4 td, .category, .left, #xe .gap1, .contents-table li, .contents-table, .cubrid-tweets, .cubrid-tweets ul, .cubrid-tweets li, .rrt-author-img, .code, #slider-nav span, #xe dl, #xe dd, #footer, #footer_left_container, .app, .applogo, #xe .summary, #footer div, div.important, #cubrid-share {
+	float:none;	
+	width:auto;
+	}	
+h2 {
+	margin:0;
+	font-size:16px;
+	border-top:0;
+	}
+#xe h3{
+	margin:0;
+	}	
+.red {
+	color:red;
+	}	

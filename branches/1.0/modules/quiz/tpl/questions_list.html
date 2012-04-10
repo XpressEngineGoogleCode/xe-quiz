@@ -1,0 +1,77 @@
+<!--%import("filter/delete_answer.xml")-->
+<!--%import("filter/delete_question.xml")-->
+<!--%import("js/quiz.js")-->
+<!--#include("./header.html")-->
+
+<table cellspacing="0" class="rowTable">
+		<tr>
+			<th></th>
+			<th>{$lang->questions}</th>
+			<th></th>
+			<th></th>
+		</tr>
+	<!--@foreach($questions_list as $no => $val)-->
+		<tr>
+			<th>{$no+1}</th>
+			<th><a href="{getUrl('act','dispQuizAdminInsertQuestion','module_srl',$module_srl, 'question_srl', $val->question_srl)}" title="Click to edit question">{$val->title}</a></th>
+			<th><a href="#" onclick="return doDeleteQuestion('{$val->question_srl}');">{$lang->delete_question}</a></th>
+			<th>
+				<!--@if($val->is_multiple_choice == 'Y') -->
+				<a href="{getUrl('act','dispQuizAdminInsertAnswer','module_srl',$module_srl, 'question_srl', $val->question_srl)}">{$lang->add_answer}</a>
+				<!--@end -->
+			</th>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="3">
+			<!--@if($val->is_multiple_choice == 'Y') -->
+				<table>
+				<!--@foreach($answers_list[$val->question_srl] as $indx => $answer)-->
+					<tr>
+						<td><a href="{getUrl('act','dispQuizAdminInsertAnswer','module_srl',$module_srl, 'question_srl', $val->question_srl, 'answer_srl', $answer->answer_srl)}">{$lang->edit}</a></td>
+						<td>{$indx+1}</td>
+						<td>{$answer->title}</td>
+						<td>
+							<!--@if($answer->is_correct == 'Y') -->
+								<img src="img/checked.png" alt="Correct!" />
+							<!--@end -->
+						</td>
+						<td>
+							<a href="#" onclick="return doDeleteAnswer('{$answer->answer_srl}');">{$lang->delete_answer}</a>
+						</td>			
+					</tr>
+				<!--@end -->
+				</table>
+			<!--@else -->
+					Correct answer: {$val->answer}
+			<!--@end-->
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Weight: {$val->weight}</td>
+			<td></td>
+			<td></td>
+		</tr>		
+		<tr>
+			<td></td>
+			<td>{$val->description}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+	<!--@end -->
+</table>
+
+<div class="clear">
+    <div class="fr">
+        <a href="{getUrl('act','dispQuizAdminInsertQuestion','module_srl',$module_srl, 'question_srl', '')}" class="button black strong"><span>{$lang->add_new_question}</span></a>
+    </div>
+</div>
+
+<form id="fo_delete_answer" name="fo_delete_answer" method="post" action="./">
+	<input type="hidden" name="answer_srl" value="" />
+</form>
+<form id="fo_delete_question" name="fo_delete_question" method="post" action="./">
+	<input type="hidden" name="question_srl" value="" />
+</form>

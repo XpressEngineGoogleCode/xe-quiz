@@ -1,0 +1,10 @@
+<!--%import("filter/clear_logs.xml")-->
+<!--%import("js/quiz.js")-->
+<!--#include("header.html")-->
+
+<form action="./" method="post" onsubmit="return procFilter(this, clear_logs)" enctype="multipart/form-data">
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+
+	<span class="button black strong"><input type="submit" value="Delete all logs (for this quiz)" accesskey="s" /></span>
+	<span class="button"><input type="button" value="{$lang->cmd_back}" onclick="history.back(); return false;" /></span>
+</form>

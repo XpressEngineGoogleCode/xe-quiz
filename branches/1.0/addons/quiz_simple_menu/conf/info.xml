@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="en">Quiz simple menu</title>
+    <description xml:lang="en">
+       This menu removes all tabs except Member info from the default Member user menu.
+    </description>
+    <version>0.1</version>
+    <date>2011-02-23</date>
+
+    <author email_address="xe_dev@arnia.ro" link="http://xpressengine.org/">
+        <name xml:lang="Arnia Software">NHN</name>
+    </author>
+</addon>

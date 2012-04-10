@@ -1,0 +1,15 @@
+<!--%import("filter/retake_question.xml")-->
+<!--#include("question.header.html")-->
+<form method="post" action="./" onsubmit="return procFilter(this, retake_question);">
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="question_srl" value="{$question->getQuestionSrl()}" />
+	
+	<div class="question q_incorrect q_timed">
+		<p class="question_title">{$question->getTitle()}</p>
+		<p>Unfortunately, your answer for this question was incorrect.</p>		
+		<!--@if($module_info->use_question_activation_date == 'Y') --> 
+			<span class="button"><input type="submit" value="Try again!" class="button" /></span>
+		<!--@end -->
+	</div>	
+</form>
+<!--#include("question.footer.html")-->

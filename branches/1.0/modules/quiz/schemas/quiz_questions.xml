@@ -1,0 +1,12 @@
+<table name="quiz_questions">
+	<column name="question_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+    <column name="module_srl" type="number" size="11" notnull="notnull" />
+    <column name="title" type="text" notnull="notnull" />
+    <column name="list_order" type="number" size="11" notnull="notnull" />
+    <column name="description" type="text"  />
+    <column name="hint" type="text"  />
+    <column name="answer" type="text"  />
+    <column name="weight" type="number" size="11" notnull="notnull" />
+    <column name="activation_date" type="date"  />
+    <column name="is_multiple_choice" type="char" size="1" default="N" />
+</table>

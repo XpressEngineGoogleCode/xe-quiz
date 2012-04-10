@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget version="0.2">
+    <title xml:lang="en">Quiz latest question</title>
+    <description xml:lang="en"></description>
+    <version>0.1</version>
+    <date>2009-08-17</date>
+    <author email_address="sol@ngleader.com" link="http://www.ngleader.com">
+        <name xml:lang="en">sol</name>
+    </author>
+    <extra_vars>
+        <var id="selected_module_srl">
+            <name xml:lang="en">Target module</name>
+            <type>mid</type>
+        </var>
+    </extra_vars>
+</widget>

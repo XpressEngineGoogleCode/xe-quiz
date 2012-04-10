@@ -1,0 +1,13 @@
+<filter name="proc_question" module="quiz" act="procQuestion">
+    <form />
+    <parameter>
+    	<param name="module_srl" target="module_srl" />
+    	<param name="question_srl" target="question_srl" />
+    	<param name="answer" target="answer" />
+    	<param name="mid" target="mid" />
+    </parameter>
+    <response callback_func="completeQuestion">
+        <tag name="error" />
+        <tag name="message" />
+    </response>
+</filter>

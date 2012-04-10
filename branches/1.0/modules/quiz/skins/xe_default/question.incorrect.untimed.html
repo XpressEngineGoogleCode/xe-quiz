@@ -1,0 +1,23 @@
+<!--#include("question.header.html")-->
+<div class="question q_incorrect q_untimed">
+	<p class="question_title">{$question->getTitle()}</p>
+	<p>Unfortunately, your answer for this question was incorrect.</p>
+
+	<!--@if($question->isMultipleChoice()) -->
+		<ul class="answers">
+			<!--@foreach($question->getAnswers() as $indx => $answer) -->	
+				<!--@if($answer->is_correct == 'Y') -->
+					<li class="correct">
+				<!--@else -->
+					<li>
+				<!--@end -->
+						{$indx+1}. {$answer->title}
+					</li>
+			<!--@end -->
+		</ul>
+	<!--@else -->
+		<p><strong>Your answer: </strong>{$log->answer}</p>
+	<!--@end -->
+
+</div>
+<!--#include("question.footer.html")-->
