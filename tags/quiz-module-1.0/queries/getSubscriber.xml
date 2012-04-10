@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query id="getSubscriber" action="select">
+    <tables>
+        <table name="quiz_subscribers" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="email_address" var="email_address" />
+    </conditions>
+</query>
+
