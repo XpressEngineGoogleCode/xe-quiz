@@ -25,13 +25,13 @@
         	<li <!--@if($act=='dispQuizAdminQuizEmail')-->class="on"<!--@end -->><a href="{getUrl('act','dispQuizAdminQuizEmail')}">Send email</a></li>
 			
 			<!--@if($act=='dispQuizAdminInsertQuestion'&&!$question_srl) -->
-				<li class="on"><a href="">Add question</a></li>
+				<li class="on"><a href="">{$lang->add_new_question}</a></li>
 			<!--@end -->
 		<!--@end-->
 		
 		<!--@if($module_srl&&$question_srl) -->
 			<!--@if($act=='dispQuizAdminInsertAnswer'&&!$answer_srl) -->
-				<li class="on"><a href="">Add answer</a></li>
+				<li class="on"><a href="">{$lang->add_answer}</a></li>
 			<!--@end -->		
 		<!--@end -->
     </ul>

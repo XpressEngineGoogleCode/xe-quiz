@@ -6,7 +6,7 @@
 	
 	<div class="question q_incorrect q_timed">
 		<p class="question_title">{$question->getTitle()}</p>
-		<p>Unfortunately, your answer for this question was incorrect.</p>		
+		<p>{$lang->incorrect_answer}</p>		
 		<!--@if($module_info->use_question_activation_date == 'Y') --> 
 			<span class="button"><input type="submit" value="Try again!" class="button" /></span>
 		<!--@end -->
