@@ -14,12 +14,12 @@
 			<!--@end -->
 		</ul>
 	<!--@else -->
-		<p><strong>Correct answer: </strong>
+		<p><strong>{$lang->correct_answer}</strong>
 		<br/>
 			{$question->getAnswer()}
 		</p>
-		<p><strong>Your answer: </strong><br/>{$log->answer}</p>
+		<p><strong>{$lang->your_answer} </strong><br/>{$log->answer}</p>
 	<!--@end -->
-	<p cond="$question->getDescription()"><strong>Explanation: </strong>{$question->getDescription()}</p>
+	<p cond="$question->getDescription()"><strong>{$lang->explanation}</strong>{$question->getDescription()}</p>
 </div>
 <!--#include("question.footer.html")-->

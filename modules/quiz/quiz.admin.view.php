@@ -129,7 +129,7 @@
             	$oQuizModel = &getModel('quiz');
             	$question = $oQuizModel->getQuestion($args);
             }
-            else $question = $args;
+            else $question = new Question($args);
             
           	Context::set('question', $question);
             

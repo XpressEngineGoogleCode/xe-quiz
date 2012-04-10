@@ -100,6 +100,11 @@
     		else
     			return 0;				
 		}
+		
+		function isMultipleChoice()
+		{
+			return false;
+		}
 	}
 
 	class OpenQuestion extends Question
