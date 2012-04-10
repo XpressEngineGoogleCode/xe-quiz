@@ -59,8 +59,10 @@
         	$oQuizModel = &getModel('quiz');
         	$questions_list = $oQuizModel->getQuestions($args);
         	if(!$questions_list)
-        		return new Object(-1, 'msg_invalid_request');
-            
+			{
+        		$this->setTemplateFile('index_no_questions');
+				return;
+			}
         	// See if quiz ended or not
 			$quiz_info = new QuizInfo($this->module_info->start_date, $this->module_info->end_date, $this->module_info->use_question_activation_date, $this->module_info->use_timing);
 			Context::set('quiz_info', $quiz_info);        	
