@@ -616,9 +616,9 @@ class QuizModel extends Quiz
 				$class .= ' uncollapsed';
 			}
 		} 		
-		//  Question already answered and incorrect 
 		else
 		{
+			//  Question already answered and incorrect 
 			if($log && $log->is_correct == 'N') 
 			{
 				if($quiz_info->timeQuestions()) 
@@ -636,12 +636,13 @@ class QuizModel extends Quiz
 					$class .= ' uncollapsed';
 				}
 			}
+			else 
+			{
+				$template_file = 'question.form';
+				$class = 'form teaser';
+			}			
 		}
-		else 
-		{
-			$template_file = 'question.form';
-			$class = 'form teaser';
-		}
+
 		if($quiz_info->showQuestionsOneAtATime()) 
 		{
 			$activation_date = strtotime($question->getActivationDate());

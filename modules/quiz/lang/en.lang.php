@@ -132,7 +132,7 @@
 	
 	
 	// Questions
-	$lang->question_title = "Question %s";
+	$lang->question_view_title = "Question %s";
 	$lang->coming_soon = "Coming soon.";
 	$lang->inactive = "This question is not available yet! Stay tuned for when it will become visible.";
 	$lang->incorrect_answer = "Unfortunately, your answer for this question was incorrect.";
