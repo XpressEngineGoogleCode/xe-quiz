@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="en">Quiz</title>
+    <description xml:lang="en">
+    	This module allows you to administer tests through XE. Scores are stored in the database.
+    </description>
+    <version>1.0</version>
+    <date>2012-04-11</date>
+    <category>service</category>
+
+    <author email_address="xe_dev@arnia.ro" link="http://xpressengine.org/">
+        <name xml:lang="en">Arnia Software</name>
+    </author>
+</module>

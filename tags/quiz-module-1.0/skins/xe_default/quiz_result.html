@@ -1,0 +1,20 @@
+<!--%import("css/quiz.css")-->
+<!--%import("filter/retake_quiz.xml")-->
+<!--%import("js/quiz.js")-->
+<!--%import("css/questions.css")-->
+<!--#include("_header.html")-->
+
+<p>{sprintf($lang->user_score, $score)}</p>
+<p>{$lang->do_better} <a href="#" onclick="return doRetakeQuiz('{$module_info->module_srl}');">{$lang->retake_test}</a> </p>
+<br />
+<!--@if($module_info->start_date) -->
+<p> {$lang->points_received_notice}
+	<i>{zdate($module_info->start_date,"Y-m-d")} - {zdate($module_info->end_date,"Y-m-d")}</i></p>
+<br />
+<!--@end-->
+
+<!--#include("questions_list.html")-->
+
+<form id="fo_retake_quiz" name="fo_retake_quiz" method="post" action="./">
+	<input type="hidden" name="module_srl" value="" />
+</form>

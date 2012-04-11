@@ -1,0 +1,9 @@
+<query id="insert_subscriber" action="insert">
+    <tables>
+        <table name="quiz_subscribers" />
+    </tables>
+    <columns>       
+        <column name="member_srl" var="member_srl" filter="number"/>
+        <column name="email_address" var="email_address" filter="email" notnull="notnull" />
+    </columns>
+</query>

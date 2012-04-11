@@ -1,0 +1,44 @@
+<!--#include("question.header.html")-->
+
+<!--@if(!$grant->take_quiz) -->
+	<!--#include("question.teaser.html")-->
+<!--@else -->
+	<div class="question q_form">
+	
+	<!--@if($quiz_info->showQuestionsOneAtATime() && $quiz_info->isActive()) --> <!--@ // Process questions one at a time: print form header -->
+		<!--%import("filter/proc_question.xml")-->
+		<form method="post" action="./" onsubmit="return procFilter(this, proc_question);">
+			<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+			<input type="hidden" name="question_srl" value="{$question->getQuestionSrl()}" />
+			<input type="hidden" name="mid" value="{$module_info->mid}" />
+	<!--@end -->
+	
+	<!--@if($question->isMultipleChoice())-->
+			<p class="question_title">{$question->getListOrder()}. {$question->getTitle()}</p>
+			<p>
+				<ul class="answers">
+				<!--@foreach($question->getAnswers() as $indx => $answer)-->
+						<li>
+							<input type="checkbox" name="item_{$question->getQuestionSrl()}" id="item_{$question->getQuestionSrl()}" value="{$answer->answer_srl}" />
+							{$answer->title}
+						</li>
+				<!--@end -->
+				</ul>
+			</p>
+	<!--@else -->	
+			<p class="question_title">{$question->getTitle()}</p>
+			<p><textarea name="open_item_{$question->getQuestionSrl()}" class="inputTypeTextArea answer" id="open_item_{$question->getQuestionSrl()}"></textarea></p>
+	<!--@end -->
+	
+			<p class="question_hint">{$question->getHint()}</p>
+	
+	<!--@if($quiz_info->showQuestionsOneAtATime() && $quiz_info->isActive()) --> <!--@ // Process questions one at a time -->
+		<span class="button"><input type="submit" value="Submit!" class="button" /></span>
+		<!--@if($question_srl)-->
+		<span class="button"><input type="button" value="{$lang->cmd_back}" onclick="history.back(); return false;" /></span>
+		<!--@end-->
+		</form>
+	<!--@end -->
+	</div>	
+<!--@end -->
+<!--#include("question.footer.html")-->

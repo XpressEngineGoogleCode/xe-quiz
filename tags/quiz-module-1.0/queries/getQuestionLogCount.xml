@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query id="getQuizQuestionsLog" action="select">
+    <tables>
+        <table name="quiz_questions_log" />
+    </tables>
+    <columns>
+        <column name="count(*)" alias="count" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="question_srl" var="question_srl" />
+        <condition operation="equal" column="user_identifier" var="user_identifier" pipe="and" />
+    </conditions>
+</query>
+
