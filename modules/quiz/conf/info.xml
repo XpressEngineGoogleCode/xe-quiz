@@ -5,7 +5,7 @@
     	This module allows you to administer tests through XE. Scores are stored in the database.
     </description>
     <version>1.0</version>
-    <date>2012-04-10</date>
+    <date>2012-04-11</date>
     <category>service</category>
 
     <author email_address="xe_dev@arnia.ro" link="http://xpressengine.org/">
