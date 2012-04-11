@@ -1,8 +1,0 @@
-<query id="deleteQuizAnswer" action="delete">
-    <tables>
-        <table name="quiz_answers" />
-    </tables>
-    <conditions>
-        <condition operation="equal" column="answer_srl" var="answer_srl" filter="number" />
-    </conditions>
-</query>

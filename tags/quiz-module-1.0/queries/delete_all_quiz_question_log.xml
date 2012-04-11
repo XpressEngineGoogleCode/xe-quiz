@@ -1,8 +1,0 @@
-<query id="delete_quiz_question_log" action="delete">
-    <tables>
-        <table name="quiz_questions_log" />
-    </tables>
-    <conditions>
-        <condition operation="equal" column="module_srl" var="module_srl" filter="number" />
-    </conditions>
-</query>
