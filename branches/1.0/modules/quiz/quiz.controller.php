@@ -1,15 +1,19 @@
 <?php
 /**
-* @class QuizController
-* @developer Corina Udrescu (xe_dev@arnia.ro)
-* @brief Class for handling form submission and such (add/edit/delete entities)
-*/
+ * File containing the Quiz controller class
+ */
+/**
+ * Class for handling form submission and such (add/edit/delete entities)
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
+ */
 class QuizController extends Quiz
 {
 	
 	/**
-	 * @brief Rate user answers on an entire quiz and save score and log
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Rate user answers on an entire quiz and save score and log
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return Object 
 	 */
@@ -72,8 +76,8 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Deletes log for a quiz instance
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Deletes log for a quiz instance
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return Object 
 	 */
@@ -112,9 +116,9 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Start timing a question - insert almost empty question log to mark start_time; 
+	 * Start timing a question - insert almost empty question log to mark start_time;
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object 
 	 */
 	function procStartQuestion() 
@@ -162,9 +166,9 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Rate a question and save score and log
+	 * Rate a question and save score and log
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object 
 	 */
 	function procQuestion() 
@@ -258,9 +262,9 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Inactivates question log, allowing user to retake a question
+	 * Inactivates question log, allowing user to retake a question
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object 
 	 */
 	function procRetakeQuestion() 
@@ -287,9 +291,9 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Overried procMemberInsert function in member module;
+	 * Overrides procMemberInsert function in member module;
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object
 	 * 
 	 * Used for customizing the screen quiz users see when registering.
@@ -331,9 +335,9 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Add member to subscribers' list
+	 * Add member to subscribers' list
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object 
 	 */
 	function procQuizMemberSubscribe() 
@@ -360,8 +364,8 @@ class QuizController extends Quiz
 	}
 	
 	/**
-	 * @brief Conveniently format user input (answers)
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Conveniently format user input (answers)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return array() - An array of UserAnswer objects
 	 * 

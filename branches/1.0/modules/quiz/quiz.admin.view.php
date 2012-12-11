@@ -1,17 +1,21 @@
 <?php
 /**
-* @class  quizAdminView
-* @developer Corina Udrescu (xe_dev@arnia.ro)
-* @brief View functions for the admin interface 
-*/
+ * File containing the Quiz admin view class
+ */
+/**
+ * View functions for the admin interface
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
+ */
 class QuizAdminView extends Quiz
 {
-	
+
 	/**
-	 * @brief Constructor 
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Constructor
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return 
+	 * @return \ModuleObject
 	 */
 	function init() 
 	{
@@ -53,12 +57,12 @@ class QuizAdminView extends Quiz
 		$template_path = sprintf("%stpl/", $this->module_path); 
 		$this->setTemplatePath($template_path);
 	}
-	
+
 	/**
-	 * @brief Index view - displays a list of all quizzes
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Index view - displays a list of all quizzes
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return  
+	 * @return void
 	 */
 	function dispQuizAdminList() 
 	{
@@ -73,23 +77,23 @@ class QuizAdminView extends Quiz
 		Context::set('quiz_list', $quiz_list); 
 		$this->setTemplateFile('quiz_list');
 	}
-	
+
 	/**
-	 * @brief Quiz view - Add/Edit a quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Quiz view - Add/Edit a quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return  
+	 * @return void
 	 */
 	function dispQuizAdminQuizInfo() 
 	{
 		$this->dispQuizAdminInsertQuiz();
 	}
-	
+
 	/**
-	 * @brief Quiz view - Add/Edit a quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Quiz view - Add/Edit a quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return
+	 * @return Object
 	 */
 	function dispQuizAdminInsertQuiz() 
 	{
@@ -114,12 +118,12 @@ class QuizAdminView extends Quiz
 		
 		$this->setTemplateFile('quiz_insert');
 	}
-	
+
 	/**
-	 * @brief Questions view - displays a list of all the questions associated with a quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Questions view - displays a list of all the questions associated with a quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return
+	 * @return Object
 	 */
 	function dispQuizAdminQuizQuestions() 
 	{
@@ -149,12 +153,12 @@ class QuizAdminView extends Quiz
 		Context::set('answers_list', $answers_list); 
 		$this->setTemplateFile('questions_list');
 	}
-	
+
 	/**
-	 * @brief Question view - Add/Edit a question
+	 * Question view - Add/Edit a question
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return Object
 	 */
 	function dispQuizAdminInsertQuestion() 
 	{
@@ -178,14 +182,14 @@ class QuizAdminView extends Quiz
 		
 		$this->setTemplateFile('question_insert');
 	}
-	
+
 	/**
-	 * @brief Answer view - Add/Edit an option for multiple choice questions
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @access public
-	 * @return 
-	 * 
+	 * Answer view - Add/Edit an option for multiple choice questions
 	 * TODO Hide getAnswer inside model
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @access public
+	 * @return Object
 	 */
 	function dispQuizAdminInsertAnswer() 
 	{
@@ -207,14 +211,14 @@ class QuizAdminView extends Quiz
 		Context::set('answer', $answer); 
 		$this->setTemplateFile('answer_insert');
 	}
-		
+
 	/**
-	 * @brief Manage permissions view - Displays template files from the 'member' module
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @access public
-	 * @return
-	 * 
+	 * Manage permissions view - Displays template files from the 'member' module
 	 * Allows the user to customize quiz permissions
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @access public
+	 * @return void
 	 */
 	function dispQuizAdminGrantInfo() 
 	{
@@ -226,10 +230,10 @@ class QuizAdminView extends Quiz
 	}
 
 	/**
-	 * @brief View for managing quiz logs
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * View for managing quiz logs
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return 
+	 * @return void
 	 */
 	function dispQuizAdminQuizLog() 
 	{
@@ -237,21 +241,21 @@ class QuizAdminView extends Quiz
 	}
 
 	/**
-	 * @brief View for managing quiz subscribers
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * View for managing quiz subscribers
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return 
-	 */	
+	 * @return void
+	 */
 	function dispQuizAdminQuizEmail() 
 	{
 		$this->setTemplateFile('send_email');
 	}
 
 	/**
-	 * @brief Helper function to dislay messages as alerts
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Helper function to dislay messages as alerts
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return 
+	 * @return void
 	 * @param $message string - Message to display to the user
 	 */
 	function alertMessage($message) 

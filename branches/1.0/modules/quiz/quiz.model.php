@@ -1,14 +1,18 @@
 <?php
 /**
-* @class QuizModel
-* @developer Corina Udrescu (xe_dev@arnia.ro)
-* @brief Class for handling common quiz logic and selects to the database
-*/
+ * File containing the Quiz model class
+ */
+/**
+ * Class for handling common quiz logic and selects to the database
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
+ */
 class QuizModel extends Quiz
 {
 	/**
-	 * @brief Returns path to this module's skins folder
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns path to this module's skins folder
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return string
 	 */
@@ -24,8 +28,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Gets all questions and associated answers for the current quiz  
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Gets all questions and associated answers for the current quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return array() - array of Question objects
 	 * @param $args stdClass - must contain module_srl
@@ -80,8 +84,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Gets a certain question 
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Gets a certain question
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return Question
 	 * @param $args stdClass - must contain question_srl
@@ -122,8 +126,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Get a unique user ID - works with both authenticated and anonymous users
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Get a unique user ID - works with both authenticated and anonymous users
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return string
 	 */
@@ -149,8 +153,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returns member_srl if user is logged in or -1 otherwise
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns member_srl if user is logged in or -1 otherwise
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return string
 	 */	
@@ -162,8 +166,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Initializez info about the current memeber
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Initializez info about the current memeber
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return stdClass
 	 *  
@@ -191,8 +195,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returns log for the current quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns log for the current quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return stdClass
@@ -214,16 +218,16 @@ class QuizModel extends Quiz
 		}
 		return $output->data[0];
 	}
-	
+
 	/**
-	 * @brief Inserts a new record in Quiz log table
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Inserts a new record in Quiz log table
+	 *   $args->module_srl - Quiz unique identifier (mandatory)
+	 *   $args->score - Total score obtained by user at this quiz
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args - data to be inserted
-	 * @return 
-	 * 
-	 * 	$args->module_srl - Quiz unique identifier (mandatory)
-	 *  $args->score - Total score obtained by user at this quiz
+	 * @return Object
 	 */
 	function insertQuizLog($args) 
 	{
@@ -259,16 +263,16 @@ class QuizModel extends Quiz
 		$oDB->commit();
 		return new Object(0);
 	}
-	
+
 	/**
-	 * @brief Updates a record in Quiz log table
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Updates a record in Quiz log table
+	 *  $args->module_srl - Quiz unique identifier (mandatory)
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args - data to be updated
-	 * @return 
-	 *
-	 * 	$args->module_srl - Quiz unique identifier (mandatory)
-	 */	
+	 * @return Object
+	 */
 	function updateQuizLog($args) 
 	{
 		if(!$args->module_srl) 
@@ -309,18 +313,17 @@ class QuizModel extends Quiz
 		$oDB->commit();
 		return new Object(0);
 	}
-	
+
 	/**
-	 * @brief Inserts a new record in QuizQuestion log table
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @access public
-	 * @return
-	 * @param $args - data to be inserted
-	 * 
-	 * 	$args->module_srl - Quiz unique identifier (mandatory)
+	 * Inserts a new record in QuizQuestion log table
+	 *     $args->module_srl - Quiz unique identifier (mandatory)
 	 *  $args->question_srl - Question unique identifier (mandatory)
 	 *  $args->start_date - Time when the user started answering the question
-	*/
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @access public
+	 * @param $args - data to be inserted
+	 * @return Object
+	 */
 	function insertQuizQuestionLog($args) 
 	{
 		if(!$args->module_srl) 
@@ -377,8 +380,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Updates question log
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Updates question log
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return Object 
@@ -437,8 +440,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Return log for a certain question
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Return log for a certain question
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return stdClass
@@ -468,8 +471,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returs the log for all the questions in the current quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returs the log for all the questions in the current quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return stdClass
@@ -499,8 +502,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Counts the number of times a question was already answered
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Counts the number of times a question was already answered
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return stdClass
@@ -522,8 +525,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returns difference between two dates
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns difference between two dates
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $date1 string
 	 * @param $date2 string
@@ -535,8 +538,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returns the difference between two dates formatted for displaying on the frontend
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns the difference between two dates formatted for displaying on the frontend
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $date1 string
 	 * @param $date2 string
@@ -549,8 +552,8 @@ class QuizModel extends Quiz
 	}
 
 	/**
-	 * @brief Returns the a formatted date for displaying on the frontend
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns the a formatted date for displaying on the frontend
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $diff int
 	 * @return string
@@ -593,8 +596,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returs the view for a question and log
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returs the view for a question and log
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $question Question
 	 * @param $log stdClass
@@ -602,7 +605,7 @@ class QuizModel extends Quiz
 	 * @param $quiz_log stdClass
 	 * @return string
 	 */
-	function getQuestionHTML($question, $log, $quiz_info, $quiz_log = NULL) 
+	function getQuestionHTML($question, $log, $quiz_info, $quiz_log = NULL)
 	{
 		// Question already answered and correct
 		if(($log && $log->is_correct == 'Y')) 
@@ -667,15 +670,15 @@ class QuizModel extends Quiz
 		$oTemplate = &TemplateHandler::getInstance();
 		return $oTemplate->compile($template_path, $template_file);
 	}
-	
+
 	/**
-	 * @brief Returns most recent question that became active (visible)
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns most recent question that became active (visible)
+	 * Used for a "latest question" widget
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $module_srl int
-	 * @return $activeQuestion Question
-	 * 
-	 * Used for a "latest question" widget
+	 * @return null|Object $activeQuestion Question
 	 */
 	function getLatestActiveQuestion($module_srl) 
 	{
@@ -713,8 +716,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Checks if a question has become visible or not (active)
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Checks if a question has become visible or not (active)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $question Question
 	 * @return boolean
@@ -731,8 +734,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returs a list of all the questions that are visible
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returs a list of all the questions that are visible
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $module_srl int
 	 * @return array
@@ -761,8 +764,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Adds a subscriber
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Adds a subscriber
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return Object
@@ -797,8 +800,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Deletes a subscriber
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Deletes a subscriber
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return Object
@@ -824,8 +827,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Returns a list of all subscribers to the quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Returns a list of all subscribers to the quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return array
 	 */		
@@ -840,8 +843,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Sends an email to all subscribed users
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Sends an email to all subscribed users
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $args stdClass
 	 * @return Object
@@ -878,8 +881,8 @@ class QuizModel extends Quiz
 	}
 	
 	/**
-	 * @brief Checks if a given email addres exists in the subscribers list
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Checks if a given email addres exists in the subscribers list
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @param $email string
 	 * @return boolean

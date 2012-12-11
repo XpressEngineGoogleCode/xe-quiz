@@ -1,17 +1,21 @@
 <?php
 /**
-* @class QuizView
-* @developer Corina Udrescu (xe_dev@arnia.ro)
-* @brief Class for preparing front-end views for display 
-*/
+ * File containing the Quiz view class
+ */
+/**
+ * Class for preparing front-end views for display
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
+ */
 class QuizView extends Quiz
 {
-	
+
 	/**
-	 * @brief Constructor function - initializes the state for all of this classes' methods.
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Constructor function - initializes the state for all of this classes' methods.
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return 
+	 * @return \ModuleObject
 	 */
 	function init() 
 	{
@@ -49,12 +53,12 @@ class QuizView extends Quiz
 		$template_path = $oQuizModel->getSkinTemplatePath();
 		$this->setTemplatePath($template_path);
 	}
-	
+
 	/**
-	 * @brief Index page for a given quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Index page for a given quiz
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return
+	 * @return Object
 	 */
 	function dispQuizIndex() 
 	{
@@ -124,10 +128,10 @@ class QuizView extends Quiz
 	}
 
 	/**
-	 * @brief Question page
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Question page
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return
+	 * @return Object
 	 */
 	function dispQuizQuestion() 
 	{
@@ -170,14 +174,14 @@ class QuizView extends Quiz
 		Context::set('question_srl', $args->question_srl);
 		$this->setTemplateFile('question');
 	}
-	
+
 	/**
-	 * @brief Displays a list of all the score for a given quiz
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @access public
-	 * @return
-	 * 
+	 * Displays a list of all the score for a given quiz
 	 * TODO Change XML query to retrieve user_name from quiz_log table instead of join with member
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @access public
+	 * @return Object
 	 */
 	function dispGlobalStanding() 
 	{
