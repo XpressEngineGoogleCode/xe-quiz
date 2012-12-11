@@ -1,8 +1,19 @@
 <?php
 /**
- * @class QuizInfo 
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Stores info specific for a quiz module instance
+ * File containing the Quiz model classes:
+ * 	QuizInfo
+ *  Question
+ *  OpenQuestion
+ *  MultipleChoiceQuestion
+ *  UserAnswer
+ *  UserAnswerForOpenQuestion
+ *  UserAnswerForMultipleChoiceQuestion
+ */
+/**
+ * Stores info specific for a quiz module instance
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class QuizInfo
 {
@@ -12,16 +23,16 @@ class QuizInfo
 	var $use_timing;
 
 	/**
-	 * @brief Class constructor
+	 * Class constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return 
-	 * @param $start_date string
-	 * @param $end_date string
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
+	 * @param $start_date                   string
+	 * @param $end_date                     string
 	 * @param $use_question_activation_date char
-	 * @param $use_timing char
+	 * @param $use_timing                   char
 	 */
-	function QuizInfo($start_date = NULL, $end_date = NULL, $use_question_activation_date = NULL, $use_timing = NULL) 
+	function QuizInfo($start_date = NULL, $end_date = NULL, $use_question_activation_date = NULL, $use_timing = NULL)
 	{
 		$this->start_date = $start_date;
 		$this->end_date = $end_date;
@@ -30,9 +41,9 @@ class QuizInfo
 	}
 	
 	/**
-	 * @brief Checks if quiz is still active (current day is between start_date and end_date)
+	 * Checks if quiz is still active (current day is between start_date and end_date)
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean 
 	 */
 	function isActive() 
@@ -52,9 +63,9 @@ class QuizInfo
 	}
 	
 	/**
-	 * @brief Checks if current quiz is configured to display all questions at once
+	 * Checks if current quiz is configured to display all questions at once
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean
 	 */
 	function showQuestionsAllAtOnce() 
@@ -63,9 +74,9 @@ class QuizInfo
 	}
 	
 	/**
-	 * @brief Checks if current quiz is configured to display questinos one at a time, at certain dates
+	 * Checks if current quiz is configured to display questinos one at a time, at certain dates
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean
 	 */
 	function showQuestionsOneAtATime() 
@@ -74,9 +85,9 @@ class QuizInfo
 	}
 	
 	/**
-	 * @brief Checks if quiz is configured to time how long it took users to answer
+	 * Checks if quiz is configured to time how long it took users to answer
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean
 	 */
 	function timeQuestions() 
@@ -85,19 +96,20 @@ class QuizInfo
 	}
 }
 /**
- * @class Question
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Base class for questions
+ * Base class for questions
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class Question
 {
 	var $question;
 
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return 
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $question stdClass
 	 */
 	function Question($question) 
@@ -106,9 +118,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns question srl
+	 * Returns question srl
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return int
 	 */
 	function getQuestionSrl() 
@@ -117,9 +129,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns list order
+	 * Returns list order
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return int 
 	 */
 	function getListOrder() 
@@ -128,9 +140,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns title
+	 * Returns title
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string 
 	 */
 	function getTitle() 
@@ -139,9 +151,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns hint
+	 * Returns hint
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string
 	 */
 	function getHint() 
@@ -150,9 +162,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns activation date - date when question becomes visible
+	 * Returns activation date - date when question becomes visible
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string
 	 */
 	function getActivationDate() 
@@ -161,9 +173,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns description
+	 * Returns description
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string
 	 */
 	function getDescription() 
@@ -172,9 +184,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Return weight - how much points a question is worth
+	 * Return weight - how much points a question is worth
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return weight
 	 */
 	function getWeight() 
@@ -183,9 +195,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns score
+	 * Returns score
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @param $user_answer UserAnswer
 	 * @param $quiz QuizInfo
 	 * @return int 
@@ -210,9 +222,9 @@ class Question
 	}
 	
 	/**
-	 * @brief Returns true if question is multiple choice, false otherwise
+	 * Returns true if question is multiple choice, false otherwise
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean 
 	 */
 	function isMultipleChoice() 
@@ -221,18 +233,19 @@ class Question
 	}
 }
 /**
- * @class OpenQuestion
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Models an open question
+ * Models an open question
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class OpenQuestion extends Question
 {
-	
+
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $question stdClass
 	 */
 	function OpenQuestion($question) 
@@ -241,9 +254,9 @@ class OpenQuestion extends Question
 	}
 	
 	/**
-	 * @brief Checks if given user answer is correct
+	 * Checks if given user answer is correct
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @param $user_answer UserAnswer
 	 * @return boolean 
 	 */
@@ -258,9 +271,9 @@ class OpenQuestion extends Question
 	}
 	
 	/**
-	 * @brief Overrides base method
+	 * Overrides base method
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean 
 	 */
 	function isMultipleChoice() 
@@ -269,9 +282,9 @@ class OpenQuestion extends Question
 	}
 	
 	/**
-	 * @brief Returns the correct answer for this question
+	 * Returns the correct answer for this question
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string 
 	 */
 	function getAnswer() 
@@ -280,18 +293,19 @@ class OpenQuestion extends Question
 	}
 }
 /**
- * @class MultipleChoiceQuestion
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Models a multiple choice question
+ * Models a multiple choice question
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class MultipleChoiceQuestion extends Question
 {
-	
+
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $question stdClass
 	 */
 	function MultipleChoiceQuestion($question) 
@@ -300,9 +314,9 @@ class MultipleChoiceQuestion extends Question
 	}
 	
 	/**
-	 * @brief Returns the choices for this question (possible answers)
+	 * Returns the choices for this question (possible answers)
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return array()
 	 */
 	function getAnswers() 
@@ -311,9 +325,9 @@ class MultipleChoiceQuestion extends Question
 	}
 	
 	/**
-	 * @brief Checks if user answer is correct
+	 * Checks if user answer is correct
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @param $user_answer UserAnswer
 	 * @return boolean 
 	 */
@@ -336,9 +350,9 @@ class MultipleChoiceQuestion extends Question
 	}
 	
 	/**
-	 * @brief Overrides base method
+	 * Overrides base method
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return boolean 
 	 */
 	function isMultipleChoice() 
@@ -347,20 +361,20 @@ class MultipleChoiceQuestion extends Question
 	}
 }
 /**
- * @class UserAnswer
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Models a user answer 
+ * Models a user answer
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class UserAnswer
 {
 	var $question_srl;
 
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
-	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $question_srl int
 	 */
 	function UserAnswer($question_srl) 
@@ -369,9 +383,9 @@ class UserAnswer
 	}
 	
 	/**
-	 * @brief Returns question sel
+	 * Returns question sel
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return int 
 	 */
 	function getQuestionSrl() 
@@ -381,31 +395,32 @@ class UserAnswer
 }
 
 /**
- * @class UserAnswerForOpenQuestion
- * @developer CorinaUdrescu (xe_dev@arnia.ro)
- * @brief Models a user answer for an open question
+ * Models a user answer for an open question
+ *
+ * @author CorinaUdrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class UserAnswerForOpenQuestion extends UserAnswer
 {
 	var $answer;
 
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $question_srl int
 	 */
 	function UserAnswerForOpenQuestion($question_srl) 
 	{
 		parent::UserAnswer($question_srl);
 	}
-	
+
 	/**
-	 * @brief Set user answer value
+	 * Set user answer value
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $user_value string
 	 */
 	function setValue($user_value) 
@@ -414,9 +429,9 @@ class UserAnswerForOpenQuestion extends UserAnswer
 	}
 	
 	/**
-	 * @brief Returns user sumbitted answer
+	 * Returns user sumbitted answer
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string
 	 */
 	function getValue() 
@@ -425,9 +440,9 @@ class UserAnswerForOpenQuestion extends UserAnswer
 	}
 	
 	/**
-	 * @brief Converts answer to string - for saving to database and such
+	 * Converts answer to string - for saving to database and such
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string
 	 */
 	function toString() 
@@ -436,19 +451,20 @@ class UserAnswerForOpenQuestion extends UserAnswer
 	}
 }
 /**
- * @class UserAnswerForMultipleChoiceQuestion 
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Models a user's answer to a multiple choice question
+ * Models a user's answer to a multiple choice question
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class UserAnswerForMultipleChoiceQuestion extends UserAnswer
 {
 	var $choices; // List of user selected values
-	
+
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $question_srl int
 	 */
 	function UserAnswerForMultipleChoiceQuestion($question_srl) 
@@ -456,13 +472,12 @@ class UserAnswerForMultipleChoiceQuestion extends UserAnswer
 		parent::UserAnswer($question_srl);
 		$this->choices = array();
 	}
-	
+
 	/**
-	 * @brief Add a user selected choice
+	 * Add a user selected choice
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
-	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return void
 	 * @param $user_value int - answer_srl
 	 */
 	function addChoice($user_value) 
@@ -471,9 +486,9 @@ class UserAnswerForMultipleChoiceQuestion extends UserAnswer
 	}
 	
 	/**
-	 * @brief Converts user answer to string, for saving to the database and such
+	 * Converts user answer to string, for saving to the database and such
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return string
 	 */
 	function toString() 
@@ -482,9 +497,9 @@ class UserAnswerForMultipleChoiceQuestion extends UserAnswer
 	}
 	
 	/**
-	 * @brief Returns all user choices
+	 * Returns all user choices
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return array
 	 */
 	function getChoices() 

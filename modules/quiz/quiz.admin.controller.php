@@ -1,14 +1,18 @@
 <?php
 /**
-* @class  QuizAdminController
-* @developer Corina Udrescu (xe_dev@arnia.ro)
-* @brief Controller functions for the admin interface
-*/
+ * File containing the Quiz admin controller class
+ */
+/**
+ * Controller functions for the admin interface
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
+ */
 class QuizAdminController extends Quiz
 {	
 	/**
-	 * @brief Create or update a quiz (module)
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Create or update a quiz (module)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return
 	 */
@@ -42,21 +46,21 @@ class QuizAdminController extends Quiz
 		$this->add('module_srl', $output->get('module_srl')); 
 		$this->setMessage($msg_code);
 	}
-	
+
 	/**
-	 * @brief Create or update a question
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @access public
-	 * @return 
-	 * 
+	 * Create or update a question
 	 * TODO Move insertQuestion logic to Model
+	 *
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @access public
+	 * @return object
 	 */
 	function procQuizAdminInsertQuestion() 
 	{
 		$args = Context::getRequestVars(); 
 		
 		$is_insert = !$args->question_srl;
-		if($is_insert == TRUE) 
+		if($is_insert == TRUE)
 		{
 			$question_srl = getNextSequence();
 		}
@@ -94,7 +98,7 @@ class QuizAdminController extends Quiz
 		$oDB = &DB::getInstance(); 
 		$oDB->begin(); 		
 		
-		if($is_insert == TRUE) 
+		if($is_insert == TRUE)
 		{
 			$output = executeQuery('quiz.insert_question', $question_args);
 		}
@@ -112,12 +116,12 @@ class QuizAdminController extends Quiz
 		
 		$this->setMessage('success_registed');
 	}
-	
+
 	/**
-	 * @brief Create or update an answer (for multiple choice questions)
+	 * Create or update an answer (for multiple choice questions)
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return object
 	 */
 	function procQuizAdminInsertAnswer() 
 	{
@@ -167,12 +171,12 @@ class QuizAdminController extends Quiz
 		$oDB->commit(); 
 		$this->setMessage('success_registed');
 	}
-	
+
 	/**
-	 * @brief Delete an answer (for multiple choice questions)
+	 * Delete an answer (for multiple choice questions)
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return object
 	 */
 	function procQuizAdminDeleteAnswer() 
 	{
@@ -193,12 +197,12 @@ class QuizAdminController extends Quiz
 		$oDB->commit(); 
 		$this->setMessage('success_registed');
 	}
-	
+
 	/**
-	 * @brief Deletes a question
+	 * Deletes a question
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return 
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return object
 	 */
 	function procQuizAdminDeleteQuestion() 
 	{
@@ -225,14 +229,14 @@ class QuizAdminController extends Quiz
 		$oDB->commit(); 
 		$this->setMessage('success_registed');
 	}
-	
+
 	/**
-	 * @brief Deletes a quiz (module)
-	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return 
-	 * 
+	 * Deletes a quiz (module)
 	 * TODO Also delete questions and answers and logs
+	 *
+	 * @access public
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return Object
 	 */
 	function procQuizAdminDeleteQuiz() 
 	{
@@ -249,12 +253,12 @@ class QuizAdminController extends Quiz
 		}
 		$this->setMessage('success_deleted');
 	}
-	
+
 	/**
-	 * @brief Deletes all question logs and quiz logs for a given quiz (module_srl)
+	 * Deletes all question logs and quiz logs for a given quiz (module_srl)
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return 
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return object
 	 */
 	function procQuizAdminClearLogs() 
 	{
@@ -281,13 +285,12 @@ class QuizAdminController extends Quiz
 		$oDB->commit(); 
 		$this->setMessage('success_registed');
 	}
-	
+
 	/**
-	 * @brief Sends email to all users who subscried to XE notifications
+	 * Sends email to all users who subscried to XE notifications
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
-	 * @return 
-	 * 
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
+	 * @return Object
 	 */
 	function procQuizAdminSendEmails() 
 	{

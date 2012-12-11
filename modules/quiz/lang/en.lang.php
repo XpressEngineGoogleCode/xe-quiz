@@ -2,7 +2,7 @@
     /**
      * @file   en.lang.php
      * @author zero (zero@nzeo.com)
-     * @brief  board modules's basic language pack
+     * board modules's basic language pack
      **/
 
 	$lang->about_browser_title = 'Text that will be displayed in the browser title.';

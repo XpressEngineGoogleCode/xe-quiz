@@ -1,18 +1,21 @@
 <?php
-
+/**
+ * File containing the Quiz module base class
+ */
 include ('quiz.item.php'); 
 
 /**
- * @class Quiz
- * @developer Corina Udrescu (xe_dev@arnia.ro)
- * @brief Quiz module base class
+ * Quiz module base class
+ *
+ * @author Corina Udrescu (xe_dev@arnia.ro)
+ * @package quiz
  */
 class Quiz extends ModuleObject
 {
 	
 	/**
-	 * @brief Module installation - method called only once, on module installation 
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Module installation - method called only once, on module installation
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
 	 * @return Object
 	 */
@@ -22,9 +25,9 @@ class Quiz extends ModuleObject
 	}
 	
 	/**
-	 * @brief Returns true if the module needs to be updated
+	 * Returns true if the module needs to be updated
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object
 	 */
 	function checkUpdate() 
@@ -82,15 +85,15 @@ class Quiz extends ModuleObject
 		$oModuleModel = &getModel('module');
 		if($oModuleModel->getTrigger('member.getMemberMenu', 'quiz', 'controller', 'triggerGetMenu', 'before')) 
 		{
-			return TRUE; 
+			return TRUE;
 		}
 		return FALSE;
 	}
 	
 	/**
-	 * @brief Updates the module
+	 * Updates the module
 	 * @access public
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @return Object
 	 */
 	function moduleUpdate() 
@@ -148,12 +151,12 @@ class Quiz extends ModuleObject
 		}
 		return new Object(0, 'success_updated');
 	}
-	
+
 	/**
-	 * @brief Clears cache files
-	 * @developer Corina Udrescu (xe_dev@arnia.ro)
+	 * Clears cache files
+	 * @author Corina Udrescu (xe_dev@arnia.ro)
 	 * @access public
-	 * @return 
+	 * @return void
 	 */
 	function recompileCache() 
 	{
